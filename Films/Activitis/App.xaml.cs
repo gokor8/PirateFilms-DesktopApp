@@ -18,12 +18,12 @@ namespace Films
         {
             base.OnStartup(e);
 
-            var viewModel = new MainViewModel();
+            //var viewModel = new MainViewModel();
             new MainWindow()
             {
-                DataContext = viewModel
+                //DataContext = viewModel
             }.Show();
-            viewModel.InitializeTimer();
+            //viewModel.InitializeTimer();
         }
     }
 }
