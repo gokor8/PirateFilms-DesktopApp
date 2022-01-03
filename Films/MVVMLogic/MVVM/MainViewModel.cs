@@ -12,6 +12,12 @@ namespace Films.Classes.MVVM
         public MainViewModel()
         {
             //InitializeTimer по правилу mvvm должен быть тут, но т.к MainViewModel инициализируется 2 раза, делаем костыль, запускаем во View
+            FilmTimer timer = new FilmTimer();
+
+            timer.OnData += (filmModel) => FilmViewModel = filmModel;
+            timer.StartTimer();
+
+            AutorizationVM = new AutorizationViewModel();
         }
 
         public void InitializeTimer()

@@ -107,12 +107,12 @@
     <Compile Include="MVVMLogic\MVVM\AutorizationViewModel.cs" />
     <Compile Include="Web\BingSearch\Bing.cs" />
     <Compile Include="Web\BingSearch\BingObjects\ImageElement.cs" />
-    <Compile Include="MVVMLogic\Models\ImagesScroll\FilmParser.cs" />
+    <Compile Include="MVVMLogic\Models\ScrollFilms\FilmParser.cs" />
     <Compile Include="Web\BingSearch\BingObjects\SearchElement.cs" />
     <Compile Include="Web\BingSearch\IBingElement.cs" />
     <Compile Include="Web\HttpClients\BaseHttp.cs" />
     <Compile Include="Web\HttpClients\PublicHttp.cs" />
-    <Compile Include="MVVMLogic\Models\ImagesScroll\FilmBuilder.cs" />
+    <Compile Include="MVVMLogic\Models\ScrollFilms\FilmBuilder.cs" />
     <Compile Include="Web\HttpClients\SiteFilmsHttp.cs" />
     <Compile Include="MVVMLogic\MVVM\Buttons\BGuest.cs" />
     <Compile Include="MVVMLogic\MVVM\Buttons\BSignUP.cs" />
@@ -120,7 +120,7 @@
     <Compile Include="MVVMLogic\Models\Film.cs" />
     <Compile Include="MVVMLogic\MVVM\INPC.cs" />
     <Compile Include="MVVMLogic\MVVM\MainViewModel.cs" />
-    <Compile Include="MVVMLogic\Models\FilmTimer.cs" />
+    <Compile Include="MVVMLogic\Models\ScrollFilms\FilmTimer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -22,7 +22,7 @@ namespace Films.Web.BingSearch
         {
             this.typeObject = typeObject;
             //Проверка на работоспособность поиска
-            //Если не срабатывает, то делаем повторный запрос(инициализацию)
+            //Если не срабатывает, то делаем повторный запрос + инициализацию
             string contentRequest = await GetSearchResult(textRequest);
 
             if (contentRequest != null)
@@ -39,11 +39,13 @@ namespace Films.Web.BingSearch
         }
         private async Task<string> GetSearchResult(string textRequest)
         {
-            textRequest = $"https://www.bing.com/{typeObject.GetObjectType()}/search?q={HttpUtility.UrlEncode(textRequest.Trim().Replace(" ", "+"))}{typeObject.SearchParametrs}";
+            textRequest = $"https://www.bing.com/" +
+                          $"{typeObject.GetObjectType()}" +
+                          $"/search?q={HttpUtility.UrlEncode(textRequest.Trim().Replace(" ", "+"))}" +
+                          $"{typeObject.SearchParametrs}";
             var response = await publicHttp.Client.GetAsync(textRequest);
 
             //Если нет кукисов, то все отлично, поисковик работает
-            //Возвращаем html
 
             var headersCookies = response.Headers.Where(i => i.Key == "Set-Cookie");
 
