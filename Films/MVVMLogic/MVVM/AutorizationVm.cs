@@ -1,15 +1,10 @@
 ﻿using Films.Classes.MVVM.Buttons;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Films.MVVMLogic.MVVM
 {
-    class AutorizationViewModel
+    internal class AutorizationVm
     {
         private string login;
         public string Login

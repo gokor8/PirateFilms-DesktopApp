@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Films.Classes.MVVM;
 using Films.Web.HttpClients;
 
 namespace Films.MVVMLogic.Models.ImagesScroll
@@ -9,7 +8,7 @@ namespace Films.MVVMLogic.Models.ImagesScroll
     {
         public Film Film { get; private set; } = new Film();
 
-        private PublicHttp _publicHttp = PublicHttp.GetInstance();
+        private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
         public FilmBuilder SetName(string name)
         {
@@ -38,7 +37,7 @@ namespace Films.MVVMLogic.Models.ImagesScroll
             if (Film.Picture.Length < 3)
                 return null;
 
-           return this;
+            return this;
         }
     }
 }

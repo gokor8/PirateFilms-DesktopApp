@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:mvvm="clr-namespace:Films.Classes.MVVM"
+        xmlns:mvvm="clr-namespace:Films.MVVMLogic.MVVM" 
         ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -37,13 +37,13 @@
             </Border>
             <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"
                     Height="120" Width="120" BorderThickness="1,1,1,1" CornerRadius="0,100,0,0" Background="#B2FF0000">
-                <TextBlock Text="{Binding FilmViewModel.Name}" TextWrapping="WrapWithOverflow"
-                           VerticalAlignment="Bottom" Height="65" Width="80" Margin="0,0,17,10" Background="#00000000" 
+                <TextBlock Text="{Binding FilmViewModel.Name}" TextWrapping="Wrap"
+                           VerticalAlignment="Bottom" Height="60" Width="80" Margin="0,0,17,15" Background="#00000000" 
                            FlowDirection="LeftToRight" FontSize="15" Foreground="#FFF9F9F9" HorizontalAlignment="Center"/>
             </Border>
         </Grid>
 
-        <GridSplitter x:Name="Splinter" Grid.Column="0" Width="4" Height="Auto" HorizontalAlignment="Right" Margin="0,1,2,0" >
+        <GridSplitter x:Name="Splinter" Grid.Column="0" Width="2.5" Height="Auto" HorizontalAlignment="Right" Margin="0,1,2,0" >
             <GridSplitter.Effect>
                 <DropShadowEffect Direction="152" BlurRadius="10" ShadowDepth="2" Color="Gray" Opacity="1"></DropShadowEffect>
             </GridSplitter.Effect>
@@ -52,16 +52,19 @@
         <Grid x:Name="SettingsGrid"
               Grid.Column="1" 
               HorizontalAlignment="Stretch">
+            
             <Button VerticalAlignment="Top" HorizontalAlignment="Stretch"
                     Height="40">
-                <Image Source="C:\Users\gzaly\OneDrive\Рабочий стол\Visual Projects\Films\Films\Pictures\Settings.png" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                <Button.Background>
+                    <ImageBrush ImageSource="/Pictures/Settings.png"></ImageBrush>
+                </Button.Background>
 
-                </Image>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
+                
             </Button>
         </Grid>
 

@@ -104,7 +104,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MVVMLogic\MVVM\AutorizationViewModel.cs" />
+    <Compile Include="MVVMLogic\MVVM\AutorizationVm.cs" />
     <Compile Include="Web\BingSearch\Bing.cs" />
     <Compile Include="Web\BingSearch\BingObjects\ImageElement.cs" />
     <Compile Include="MVVMLogic\Models\ScrollFilms\FilmParser.cs" />
@@ -148,9 +148,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\Settings.png" />
+    <Resource Include="Pictures\Settings.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Activitis\Styles\Buttons\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

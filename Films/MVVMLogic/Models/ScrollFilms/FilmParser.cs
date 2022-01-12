@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using AngleSharp;
@@ -31,18 +32,30 @@ namespace Films.MVVMLogic.Models.ImagesScroll
                     string nameFilm = siteHttp.ClearWhiteSpaces(
                        htmlDocument.QuerySelectorAll("div.sect-cont.sect-items.clearfix div.th-title")[copyCount].TextContent);
 
-                    string linkImage = await bing.GetLink(nameFilm, new ImageElement("&qft=+filterui:imagesize-custom_1000_1000&first=1&tsc=ImageBasicHover"));
+                    string linkImage = "";
+                    int linkImageIterations = 0;
+
+                    while (linkImage == "" && linkImageIterations != 3)
+                    {
+                        linkImage = await bing.GetLink(nameFilm,
+                            new ImageElement("&qft=+filterui%3aimagesize-custom_1000_1000&first=1&tsc=ImageBasicHover"));
+
+                        if (linkImage == "")
+                            await Task.Delay(1000);
+                        linkImageIterations++;
+                    }
 
                     try
                     {
                         var filmBuilder = new FilmBuilder().SetName(nameFilm).DownloadPicture(linkImage, copyCount)
                             .ValidateLink();
 
-                        OnFilm.Invoke(filmBuilder.Film);
+                        OnFilm?.Invoke(filmBuilder.Film);
                     }
                     catch(Exception exc)
                     {
-                        MessageBox.Show($"Плохая ссылка в |Images 49| {linkImage}" + exc.StackTrace);
+                        Debug.WriteLine($"Плохая ссылка в |Images 49| {linkImage}" + exc.StackTrace);
+                        //MessageBox.Show($"Плохая ссылка в |Images 49| {linkImage}" + exc.StackTrace);
                     }
                 });
             }

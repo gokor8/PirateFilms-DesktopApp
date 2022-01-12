@@ -1,37 +1,23 @@
-﻿using Films.Classes.BingSearch;
-using Films.Classes.MVVM.Buttons;
-using System.Windows.Input;
-using System.Windows.Controls;
+﻿using Films.Classes.MVVM;
 using Films.MVVMLogic.Models;
-using Films.MVVMLogic.MVVM;
+using Films.Web.BingSearch;
 
-namespace Films.Classes.MVVM
+namespace Films.MVVMLogic.MVVM
 {
     class MainViewModel : INPC
     {
         public MainViewModel()
         {
-            //InitializeTimer по правилу mvvm должен быть тут, но т.к MainViewModel инициализируется 2 раза, делаем костыль, запускаем во View
             FilmTimer timer = new FilmTimer();
 
             timer.OnData += (filmModel) => FilmViewModel = filmModel;
             timer.StartTimer();
 
-            AutorizationVM = new AutorizationViewModel();
+            AutorizationVM = new AutorizationVm();
         }
 
-        public void InitializeTimer()
-        {
-            FilmTimer timer = new FilmTimer();
-
-            timer.OnData += (filmModel) => FilmViewModel = filmModel;
-            timer.StartTimer();
-
-            AutorizationVM = new AutorizationViewModel();
-        }
-
-        private AutorizationViewModel _autorizationVM { get; set; }
-        public AutorizationViewModel AutorizationVM
+        private AutorizationVm _autorizationVM { get; set; }
+        public AutorizationVm AutorizationVM
         {
             get => _autorizationVM;
             set

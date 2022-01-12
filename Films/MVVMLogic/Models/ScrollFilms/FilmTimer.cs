@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using Films.MVVMLogic.Models.ImagesScroll;
@@ -12,7 +13,7 @@ namespace Films.MVVMLogic.Models
         public event CurrentFilmData OnData;
 
         private FilmParser _filmParser= new FilmParser();
-        private List<Film> films = new List<Film>();
+        private ConcurrentBag<Film> films = new ConcurrentBag<Film>();
         private int numberTick = 0;
 
         public void StartTimer()
@@ -31,12 +32,20 @@ namespace Films.MVVMLogic.Models
 
         private async Task OnTimerTick()
         {
-            while (films.Count < numberTick + 1)
-                await Task.Delay(100);
+            for (int i = 0; i < 25; i++)
+            {
+                if ((films.Count-1) >= numberTick + 1)
+                    break;
 
-            var film = films[numberTick];
+                await Task.Delay(1);
+            }
+            // Как размер фильмов может быть больше numberTick?
+            /*while (films.Count < numberTick + 1)
+                await Task.Delay(100);*/
 
-            numberTick = numberTick == 4 ? 0 : numberTick + 1;
+            var film = films.ElementAtOrDefault(numberTick);
+
+            numberTick = numberTick + 1 > (films.Count - 1) ? 0 : numberTick+1;
             //Оповещение MainViewModel о тике таймера, с новыми данными, которые он должен обновить во View
             OnData?.Invoke(film);
         }

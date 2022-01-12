@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using AngleSharp;
 using AngleSharp.Dom;
@@ -33,12 +34,19 @@ namespace Films.Web.BingSearch.BingObjects
 
                 if (linkPicture != null)
                 {
-                    var codeRequest = await httpClient.Client.GetAsync(linkPicture);
-                    linkCode = codeRequest.StatusCode;
+                    try
+                    {
+                        var codeRequest = await httpClient.Client.GetAsync(linkPicture);
+                        linkCode = codeRequest.StatusCode;
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
                 }
 
                 if(linkCode == HttpStatusCode.OK)
-                    return linkPicture;
+                     return linkPicture;
             }
 
             return linkPicture;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Films.MVVMLogic.Models;
 using Films.MVVMLogic.Models.ImagesScroll;
@@ -9,10 +10,10 @@ namespace ModelsTest.MVVMLogic_Test.Models_Test
     [TestClass]
     public class FilmBuilder_Test
     {
-        private List<Film> _films = new List<Film>();
+        private ConcurrentBag<Film> _films = new ConcurrentBag<Film>();
 
         [TestMethod]
-        private async Task CreatingFilms_Test()
+        async Task creatingFilms_Test()
         {
             FilmParser filmBuilder = new FilmParser();
 
@@ -40,7 +41,7 @@ namespace ModelsTest.MVVMLogic_Test.Models_Test
         [TestMethod]
         public async Task CreatingFilms_are_equal_count()
         {
-            await CreatingFilms_Test();
+            await creatingFilms_Test();
 
             Assert.AreEqual(5, _films.Count);
         }
@@ -48,7 +49,7 @@ namespace ModelsTest.MVVMLogic_Test.Models_Test
         [TestMethod]
         public async Task CreatingFilms_all_items_notnull()
         {
-            await CreatingFilms_Test();
+            await creatingFilms_Test();
 
             CollectionAssert.AllItemsAreNotNull(_films);
         }

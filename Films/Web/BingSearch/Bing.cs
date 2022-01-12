@@ -29,13 +29,12 @@ namespace Films.Web.BingSearch
             {
                 return await typeObject.GetWorkingLink(contentRequest);
             }
-            else
-            {   // Получаем кукисы
-                await InitializeBing();
-                contentRequest = await GetSearchResult(textRequest);
 
-                return await typeObject.GetWorkingLink(contentRequest);
-            }
+            // Получаем кукисы
+            await InitializeBing();
+            contentRequest = await GetSearchResult(textRequest);
+
+            return await typeObject.GetWorkingLink(contentRequest);
         }
         private async Task<string> GetSearchResult(string textRequest)
         {
@@ -54,6 +53,7 @@ namespace Films.Web.BingSearch
 
         public async Task InitializeBing()
         {
+            
             var response = await publicHttp.Client.GetAsync("https://www.bing.com/");
             foreach (var cookie in response.Headers.FirstOrDefault(i => i.Key == "Set-Cookie").Value)
             {
