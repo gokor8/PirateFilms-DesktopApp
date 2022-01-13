@@ -111,8 +111,8 @@
   <ItemGroup>
     <Compile Include="MVVMLogic\Models\DataBaseLogic\User.cs" />
     <Compile Include="MVVMLogic\Models\DataBaseLogic\UserContext.cs" />
-    <Compile Include="MVVMLogic\Models\Loginner.cs" />
-    <Compile Include="MVVMLogic\Models\LoginnerDataStore.cs" />
+    <Compile Include="MVVMLogic\Models\Loginners\Loginner.cs" />
+    <Compile Include="MVVMLogic\Models\Loginners\LoginnerDataStore.cs" />
     <Compile Include="MVVMLogic\MVVM\MainViewModel\AutorizationVm.cs" />
     <Compile Include="MVVMLogic\MVVM\MainViewModel\FilmViewModel.cs" />
     <Compile Include="Web\BingSearch\Bing.cs" />
