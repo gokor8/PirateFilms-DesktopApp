@@ -86,11 +86,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MVVMLogic_Test\Models_Test\FilmBuilder_Test.cs" />
+    <Compile Include="MVVMLogic_Test\Models_Test\Loginner_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web_Test\BingSearch_Test\Bing_ImageElement_Test.cs" />
     <Compile Include="Web_Test\HttpClients_Test\SiteFilmsHttp_Test.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
