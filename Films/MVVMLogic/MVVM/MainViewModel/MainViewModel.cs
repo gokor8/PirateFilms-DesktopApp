@@ -1,6 +1,5 @@
 ﻿using Films.Classes.MVVM;
 using Films.MVVMLogic.Models;
-using Films.Web.BingSearch;
 
 namespace Films.MVVMLogic.MVVM
 {
@@ -10,7 +9,7 @@ namespace Films.MVVMLogic.MVVM
         {
             FilmTimer timer = new FilmTimer();
 
-            timer.OnData += (filmModel) => FilmViewModel = filmModel;
+            timer.OnData += (filmModel) => FilmViewModel = new FilmViewModel(){ Name=filmModel.Name, Picture = filmModel.Picture};
             timer.StartTimer();
 
             AutorizationVM = new AutorizationVm();
@@ -27,8 +26,8 @@ namespace Films.MVVMLogic.MVVM
             }
         }
 
-        private Film filmViewModel;
-        public Film FilmViewModel
+        private FilmViewModel filmViewModel;
+        public FilmViewModel FilmViewModel
         {
             get => filmViewModel;
             set

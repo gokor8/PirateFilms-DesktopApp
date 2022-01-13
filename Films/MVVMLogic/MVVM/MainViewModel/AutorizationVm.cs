@@ -1,6 +1,7 @@
 ﻿using Films.Classes.MVVM.Buttons;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Films.MVVMLogic.Models;
 
 namespace Films.MVVMLogic.MVVM
 {
@@ -18,16 +19,19 @@ namespace Films.MVVMLogic.MVVM
 
         public ICommand SignUp => new DelegateCommand(obj =>
                 {
-                    bool isSigned = new BSignUp(Login, GetPassword(obj)).TrySignUp();
-                    if (isSigned)
+                    // напсиать юнит тест
+                    var loginnerDataStore = new Loginner().VerifyLogin(Login).VerifyPassword(GetPassword(obj)).GetVerifyResult();
+                    if (loginnerDataStore.IsVerify)
                     {
                         //В основное окно идем епте
+                        System.Windows.MessageBox.Show("Logged");
                     }
                     else
                     {
                         //Вылетает штука вверху, как в Fiddler, не верный лоджин или пароль
+                        System.Windows.MessageBox.Show("Dont Logged");
                     }
-                    System.Windows.MessageBox.Show("CALAM");
+                    //System.Windows.MessageBox.Show("CALAM");
                 });
 
 

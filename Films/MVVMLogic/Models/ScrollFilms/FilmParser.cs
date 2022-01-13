@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
 using AngleSharp;
-using Films.Classes.MVVM;
 using Films.Web.BingSearch;
 using Films.Web.BingSearch.BingObjects;
 using Films.Web.HttpClients; 
@@ -59,13 +57,6 @@ namespace Films.MVVMLogic.Models.ImagesScroll
                     }
                 });
             }
-            /*int time = Convert.ToInt32(3 + "000"); 
-                     * Thread.Sleep(Convert.ToInt32( 3 + "000"));
-                     * Чтобы проверить парралельность, расскоментировать строки выше
-                     * Т.к картинка встает 3 секунды, а те картинки скачиваются быстро,
-                     может показаться, что параллельности нету, но она есть */
-
-            // ЕСЛИ НАЗВАНИЕ ДЛИННОЕ, ВЗЯТЬ ДРУГОЙ ФИЛЬМ, ПОКА ОНО НЕ БУДЕТ КОРОТКИМ, foreach НЕ ПОДОЙДЕТ, Т.К continue СДЕЛАЕТ ДАЛЬШЕ, И БУДЕТ ФИЛЬМОВ НЕ 5, А 4
         }
     }
 }
