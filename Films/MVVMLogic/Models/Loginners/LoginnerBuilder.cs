@@ -5,7 +5,7 @@ using Films.MVVMLogic.Models.DataBaseLogic;
 
 namespace Films.MVVMLogic.Models
 {
-    public class Loginner
+    public class LoginnerBuilder
     {
         private List<LoginnerDataStore> _dataStores = new List<LoginnerDataStore>();
         protected void DictonaryAdd(string acscessString, bool isFound)
@@ -19,7 +19,7 @@ namespace Films.MVVMLogic.Models
             _dataStores.Add(new LoginnerDataStore() { AcscessString = builder.ToString(), IsVerify = isFound });
         }
 
-        public Loginner VerifyLogin(string login)
+        public LoginnerBuilder VerifyLogin(string login)
         {
             using (var context = new UserContext())
             {
@@ -29,7 +29,7 @@ namespace Films.MVVMLogic.Models
             return this;
         }
 
-        public Loginner VerifyPassword(string password)
+        public LoginnerBuilder VerifyPassword(string password)
         {
             using (var context = new UserContext())
             {

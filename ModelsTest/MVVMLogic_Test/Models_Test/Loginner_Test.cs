@@ -6,7 +6,7 @@ namespace ModelsTest.MVVMLogic_Test.Models_Test
     [TestClass]
     public class Loginner_Test
     {
-        private Loginner _loginner = new Loginner();
+        private LoginnerBuilder _loginner = new LoginnerBuilder();
 
         [TestMethod]
         public void GetVerifyResult_true_verify_login_password()
