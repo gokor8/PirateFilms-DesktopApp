@@ -22,7 +22,7 @@ namespace Films.MVVMLogic.MVVM
             set
             {
                 _autorizationVM = value;
-                OnPropertyChanged();
+                //OnPropertyChanged();
             }
         }
 

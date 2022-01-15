@@ -13,7 +13,6 @@ namespace Films.MVVMLogic.MVVM
             set
             {
                 _name = value; 
-                OnPropertyChanged();
             }
         }
 
@@ -23,7 +22,6 @@ namespace Films.MVVMLogic.MVVM
             set
             {
                 _picture = value;
-                OnPropertyChanged();
             }
         }
     }

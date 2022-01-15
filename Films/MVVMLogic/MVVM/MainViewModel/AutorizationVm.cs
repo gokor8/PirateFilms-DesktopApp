@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Films.MVVMLogic.Models;
 using System.Threading;
+using Films.Classes.MVVM;
 
 namespace Films.MVVMLogic.MVVM
 {
@@ -17,14 +18,15 @@ namespace Films.MVVMLogic.MVVM
             get => login;
             set
             {
-                login = value;
+                login = value; 
             }
         }
 
         public ICommand SignUp => new DelegateCommand(async obj =>
                 { 
                     var loginnerTask = await Task.Run(() =>
-                        new Loginner().VerifyLogin(Login).VerifyPassword(GetPassword(obj)).GetVerifyResult(), _singUpToken.Token);
+                        new LoginnerBuilder().VerifyLogin(Login).VerifyPassword(GetPassword(obj)).GetVerifyResult()
+                        , _singUpToken.Token);
                     
                     if (loginnerTask.IsVerify)
                     {
