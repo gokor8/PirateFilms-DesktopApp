@@ -107,6 +107,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Activitis\Styles\Buttons\AutorizationWindowStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MVVMLogic\Models\DataBaseLogic\User.cs" />
@@ -163,7 +167,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Activitis\Styles\Buttons\" />
     <Folder Include="MVVMLogic\Models\DataBaseLogic\EntityData\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

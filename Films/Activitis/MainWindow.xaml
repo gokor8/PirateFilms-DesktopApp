@@ -29,10 +29,21 @@
             <Border Height="250" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center"
                     BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" Background="#4C474646">
                 <Grid DataContext="{Binding AutorizationVM}">
-                    <Button Content="Access" Width="90" Height="27" Command="{Binding SignUp}" CommandParameter="{Binding ElementName=Password}" x:Name="Autorization" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,45,0,0" />
-                    <Button Content="Go by Guest" Width="76" Command="{Binding  SignByGhost}" x:Name="Guest" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,130,0,0"/>
-                    <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" Height="30" Width="171" Margin="0,0,0,100" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <PasswordBox x:Name="Password" Width="136" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,29"/>
+                    <Button Content ="ВОЙТИ" Width="90" Height="27" x:Name="Autorization"
+                            Command="{Binding SignUp}" CommandParameter="{Binding ElementName=Password}"
+                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,45,0,0"
+                            Style="{StaticResource AutorizationButton}"/>
+
+                    <Button Content="ГОСТЬ" FontSize="10.5" Height ="21" Width="90" Command="{Binding SignByGhost}" x:Name="Guest"
+                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,110,0,0"
+                            Style ="{StaticResource AutorizationButton}"/>
+
+                    <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="140" Margin="0,0,0,100"
+                             FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"
+                             Style="{StaticResource AutorizationTextBox}"/>
+
+                    <PasswordBox x:Name="Password" Width="136" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 Margin="0,0,0,29" Background="#CCC3C3C3"/>
                 </Grid>
             </Border>
             <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"

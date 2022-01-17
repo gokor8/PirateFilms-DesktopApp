@@ -9,7 +9,11 @@ namespace Films.MVVMLogic.MVVM
         {
             FilmTimer timer = new FilmTimer();
 
-            timer.OnData += (filmModel) => FilmViewModel = new FilmViewModel(){ Name=filmModel.Name, Picture = filmModel.Picture};
+            timer.OnData += (filmModel) =>
+            {
+                if(filmModel != null)
+                    FilmViewModel = new FilmViewModel() {Name = filmModel.Name, Picture = filmModel.Picture};
+            };
             timer.StartTimer();
 
             AutorizationVM = new AutorizationVm();
