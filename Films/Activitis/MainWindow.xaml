@@ -43,7 +43,7 @@
                              Style="{StaticResource AutorizationTextBox}"/>
 
                     <PasswordBox x:Name="Password" Width="136" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                 Margin="0,0,0,29" Background="#CCC3C3C3"/>
+                                 Margin="0,0,0,29" Background="#D8FFFFFF"/>
                 </Grid>
             </Border>
             <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"
