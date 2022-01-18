@@ -30,7 +30,7 @@
                     BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" Background="#4C474646">
                 <Grid DataContext="{Binding AutorizationVM}">
                     <Button Content ="ВОЙТИ" Width="90" Height="27" x:Name="Autorization"
-                            Command="{Binding SignUp}" CommandParameter="{Binding ElementName=Password}"
+                            Command="{Binding SignUp}"
                             VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,45,0,0"
                             Style="{StaticResource AutorizationButton}"/>
 
@@ -38,12 +38,13 @@
                             VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,110,0,0"
                             Style ="{StaticResource AutorizationButton}"/>
 
-                    <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="140" Margin="0,0,0,100"
+                    <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" Width="140" Margin="0,0,0,100"
                              FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"
                              Style="{StaticResource AutorizationTextBox}"/>
 
-                    <PasswordBox x:Name="Password" Width="136" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                 Margin="0,0,0,29" Background="#D8FFFFFF"/>
+                    <PasswordBox x:Name="Password" Width="140" FontSize="20" PasswordChanged="PasswordBox_PasswordChanged"
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 Margin="0,0,0,29" Style="{StaticResource AutorizationPasswordBox}"/>
                 </Grid>
             </Border>
             <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"
@@ -65,16 +66,10 @@
               HorizontalAlignment="Stretch">
             
             <Button VerticalAlignment="Top" HorizontalAlignment="Stretch"
-                    Height="40">
+                    Height="40" Style="{StaticResource RightPathButton}">
                 <Button.Background>
                     <ImageBrush ImageSource="/Pictures/Settings.png"></ImageBrush>
                 </Button.Background>
-
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="15"/>
-                    </Style>
-                </Button.Resources>
                 
             </Button>
         </Grid>

@@ -7,7 +7,7 @@ namespace Films.MVVMLogic.Models
 {
     public class LoginnerBuilder
     {
-        private List<LoginnerDataStore> _dataStores = new List<LoginnerDataStore>();
+        private readonly List<LoginnerDataStore> _dataStores = new List<LoginnerDataStore>();
         protected void DictonaryAdd(string acscessString, bool isFound)
         {
             StringBuilder builder = new StringBuilder(acscessString);

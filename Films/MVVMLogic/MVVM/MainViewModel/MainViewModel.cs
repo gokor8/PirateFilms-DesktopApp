@@ -19,7 +19,7 @@ namespace Films.MVVMLogic.MVVM
             AutorizationVM = new AutorizationVm();
         }
 
-        private AutorizationVm _autorizationVM { get; set; }
+        private AutorizationVm _autorizationVM;
         public AutorizationVm AutorizationVM
         {
             get => _autorizationVM;
