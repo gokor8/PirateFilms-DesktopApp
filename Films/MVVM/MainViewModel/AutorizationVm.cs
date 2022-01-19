@@ -1,7 +1,6 @@
 ﻿using System.Security;
 using System.Threading.Tasks;
 using Films.Classes.MVVM.Buttons;
-using System.Windows.Controls;
 using System.Windows.Input;
 using Films.MVVMLogic.Models;
 using System.Threading;
@@ -32,7 +31,7 @@ namespace Films.MVVMLogic.MVVM
             private get => _securePassword;
             set
             {
-                //if(value.Length <= 10)
+                //if(value.Length <= 6)
                     _securePassword = value;
                 //OnPropertyChanged();
             }

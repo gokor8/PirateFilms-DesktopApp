@@ -26,6 +26,7 @@ namespace Films.MVVMLogic.Models
                 bool isFound = context.Users.FirstOrDefault(l=>l.Login == login) != null;
                 DictonaryAdd("Неверный логин", isFound);
             }
+
             return this;
         }
 
@@ -47,7 +48,7 @@ namespace Films.MVVMLogic.Models
             {
                 currentDataStore.AcscessString += dataStore.AcscessString;
 
-                if (currentDataStore.IsVerify)
+                if (!currentDataStore.IsVerify)
                     currentDataStore.IsVerify = dataStore.IsVerify;
             }
 
