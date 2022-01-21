@@ -84,47 +84,45 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="View\App.xaml">
+    <ApplicationDefinition Include="Views\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="View\FilmsWindow.xaml">
+    <Page Include="Views\FilmsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="View\App.xaml.cs">
+    <Compile Include="ViewModels\MainViewModel\Validations\LoginValidator.cs" />
+    <Compile Include="ViewModels\MainViewModel\Validations\PasswordValidator.cs" />
+    <Compile Include="Views\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\Converters\WidthConverter.cs" />
-    <Compile Include="View\FilmsWindow.xaml.cs">
+    <Compile Include="Views\Converters\WidthConverter.cs" />
+    <Compile Include="Views\FilmsWindow.xaml.cs">
       <DependentUpon>FilmsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\ResourceDictionaries\MainWindow\AutorizationGrid\AutorizationButtonStyles.xaml">
+    <Page Include="Views\ResourceDictionaries\MainWindow\AutorizationGrid\AutorizationButtonStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ResourceDictionaries\MainWindow\AutorizationGrid\AutorizationTextStyles.xaml">
+    <Page Include="Views\ResourceDictionaries\MainWindow\AutorizationGrid\AutorizationTextStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ResourceDictionaries\MainWindow\BasedOnStyles.xaml">
+    <Page Include="Views\ResourceDictionaries\MainWindow\BasedOnStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ResourceDictionaries\MainWindow\MainWindowStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ResourceDictionaries\MainWindow\RightMenu\SettingButtonStyle.xaml">
+    <Page Include="Views\ResourceDictionaries\MainWindow\RightMenu\SettingButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -133,9 +131,9 @@
     <Compile Include="Models\DataBaseLogic\User.cs" />
     <Compile Include="Models\DataBaseLogic\UserContext.cs" />
     <Compile Include="Models\Loginners\LoginnerBuilder.cs" />
-    <Compile Include="Models\Loginners\LoginnerDataStore.cs" />
-    <Compile Include="MVVM\MainViewModel\AutorizationVm.cs" />
-    <Compile Include="MVVM\MainViewModel\FilmViewModel.cs" />
+    <Compile Include="Models\Loginners\Loginner.cs" />
+    <Compile Include="ViewModels\MainViewModel\AutorizationVm.cs" />
+    <Compile Include="ViewModels\MainViewModel\FilmViewModel.cs" />
     <Compile Include="Models\Web\BingSearch\Bing.cs" />
     <Compile Include="Models\Web\BingSearch\BingObjects\ImageElement.cs" />
     <Compile Include="Models\ScrollFilms\FilmParser.cs" />
@@ -145,12 +143,12 @@
     <Compile Include="Models\Web\HttpClients\PublicHttp.cs" />
     <Compile Include="Models\ScrollFilms\FilmBuilder.cs" />
     <Compile Include="Models\Web\HttpClients\SiteFilmsHttp.cs" />
-    <Compile Include="MVVM\MainViewModel\Buttons\BGuest.cs" />
-    <Compile Include="MVVM\MainViewModel\Buttons\BSignUP.cs" />
-    <Compile Include="MVVM\DelegateCommand.cs" />
+    <Compile Include="ViewModels\MainViewModel\Buttons\BGuest.cs" />
+    <Compile Include="ViewModels\MainViewModel\Buttons\BSignUP.cs" />
+    <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="Models\Film.cs" />
-    <Compile Include="MVVM\INPC.cs" />
-    <Compile Include="MVVM\MainViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModels\INPC.cs" />
+    <Compile Include="ViewModels\MainViewModel\MainViewModel.cs" />
     <Compile Include="Models\ScrollFilms\FilmTimer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -179,7 +177,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\Pictures\Settings.png">
+    <Resource Include="Views\Pictures\Settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

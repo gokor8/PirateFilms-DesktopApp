@@ -2,14 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:mvvm="clr-namespace:Films.MVVMLogic.MVVM" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mainViewModel="clr-namespace:Films.ViewModels.MainViewModel"
         ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
     <Window.DataContext>
-        <mvvm:MainViewModel/>
+        <mainViewModel:MainViewModel/>
     </Window.DataContext>
 
 
@@ -26,26 +26,32 @@
         <Grid x:Name="MainGrid" 
               Grid.Column="0"
               Height="Auto" Background="#2D474646">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Height="90" Width="320" Visibility="Hidden"/>
+
             <Border Height="250" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center"
                     BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" Background="#4C474646">
                 <Grid DataContext="{Binding AutorizationVM}">
 
-                    <Button Content ="ВОЙТИ" Width="90" Height="27" x:Name="Autorization"
-                            Command="{Binding SignUp}"
+                    <Button Command="{Binding SignUp}" x:Name="Autorization"
+                            Content ="ВОЙТИ" Width="90" Height="27"
                             VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,45,0,0"
                             Style="{StaticResource AutorizationButton}"/>
 
-                    <Button Content="ГОСТЬ" FontSize="10.5" Height ="21" Width="90" Command="{Binding SignByGhost}" x:Name="Guest"
+                    <Button Command="{Binding SignByGhost}" x:Name="Guest"
+                            Content="ГОСТЬ" FontSize="10.5" Height ="21" Width="90"
                             VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,110,0,0"
                             Style ="{StaticResource AutorizationButton}"/>
 
-                    <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" Width="140" Margin="0,0,0,100"
+                    <TextBox Text="{Binding LoginValidator.Login, UpdateSourceTrigger=PropertyChanged}" 
+                             Width="140" Margin="0,0,0,100"
                              FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"
                              Style="{StaticResource AutorizationTextBox}"/>
 
-                    <PasswordBox x:Name="Password" Width="140" FontSize="20" PasswordChanged="PasswordBox_PasswordChanged"
-                                 VerticalAlignment="Center" HorizontalAlignment="Center"
-                                 Margin="0,0,0,29" Style="{StaticResource AutorizationPasswordBox}"/>
+                    <TextBox Text="{Binding PasswordValidator.P, UpdateSourceTrigger=PropertyChanged}" 
+                             x:Name="Password" Width="140" FontSize="20" 
+                             VerticalAlignment="Center" HorizontalAlignment="Center"
+                             Margin="0,0,0,29" Style="{StaticResource AutorizationPasswordBox}"/>
                 </Grid>
             </Border>
             <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"
@@ -56,7 +62,7 @@
             </Border>
         </Grid>
 
-        <GridSplitter x:Name="Splinter" Grid.Column="0" Width="2.5" Height="Auto" HorizontalAlignment="Right" Margin="0,1,1,0" >
+        <GridSplitter x:Name="Splinter" Grid.Column="0" Width="2.5" Height="Auto" HorizontalAlignment="Right" Margin="0,1,1,0" Background="White">
             <GridSplitter.Effect>
                 <DropShadowEffect Direction="152" BlurRadius="10" ShadowDepth="2" Color="Gray" Opacity="1"></DropShadowEffect>
             </GridSplitter.Effect>

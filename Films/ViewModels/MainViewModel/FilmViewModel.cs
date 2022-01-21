@@ -1,6 +1,6 @@
 ﻿using Films.Classes.MVVM;
 
-namespace Films.MVVMLogic.MVVM
+namespace Films.ViewModels.MainViewModel
 {
     public class FilmViewModel : INPC
     {

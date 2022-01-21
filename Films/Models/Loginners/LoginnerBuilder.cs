@@ -7,8 +7,8 @@ namespace Films.MVVMLogic.Models
 {
     public class LoginnerBuilder
     {
-        private readonly List<LoginnerDataStore> _dataStores = new List<LoginnerDataStore>();
-        protected void DictonaryAdd(string acscessString, bool isFound)
+        private readonly List<Loginner> _loginners = new List<Loginner>();
+        protected void AddLogginer(string acscessString, bool isFound)
         {
             StringBuilder builder = new StringBuilder(acscessString);
             builder.Append("; ");
@@ -16,7 +16,7 @@ namespace Films.MVVMLogic.Models
             if (isFound)
                 builder.Clear();
 
-            _dataStores.Add(new LoginnerDataStore() { AcscessString = builder.ToString(), IsVerify = isFound });
+            _loginners.Add(new Loginner() { AcscessString = builder.ToString(), IsVerify = isFound });
         }
 
         public LoginnerBuilder VerifyLogin(string login)
@@ -24,7 +24,7 @@ namespace Films.MVVMLogic.Models
             using (var context = new UserContext())
             {
                 bool isFound = context.Users.FirstOrDefault(l=>l.Login == login) != null;
-                DictonaryAdd("Неверный логин", isFound);
+                AddLogginer("Неверный логин", isFound);
             }
 
             return this;
@@ -35,21 +35,21 @@ namespace Films.MVVMLogic.Models
             using (var context = new UserContext())
             {
                 bool isFound = context.Users.FirstOrDefault(l => l.Password == password) != null;
-                DictonaryAdd("Неверный пароль", isFound);
+                AddLogginer("Неверный пароль", isFound);
             }
             return this;
         }
 
-        public LoginnerDataStore GetVerifyResult()
+        public Loginner GetVerifyResult()
         {
-            LoginnerDataStore currentDataStore = new LoginnerDataStore();
+            Loginner currentDataStore = new Loginner();
 
-            foreach (var dataStore in _dataStores)
+            foreach (var logginer in _loginners)
             {
-                currentDataStore.AcscessString += dataStore.AcscessString;
+                currentDataStore.AcscessString += logginer.AcscessString;
 
                 if (!currentDataStore.IsVerify)
-                    currentDataStore.IsVerify = dataStore.IsVerify;
+                    currentDataStore.IsVerify = logginer.IsVerify;
             }
 
             return currentDataStore;

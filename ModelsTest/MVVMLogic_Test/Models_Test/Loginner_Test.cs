@@ -6,15 +6,20 @@ namespace ModelsTest.MVVMLogic_Test.Models_Test
     [TestClass]
     public class Loginner_Test
     {
+        public Loginner_Test()
+        {
+            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+        }
+
         private LoginnerBuilder _loginner = new LoginnerBuilder();
 
         [TestMethod]
         public void GetVerifyResult_true_verify_login_password()
         {
-            var loginnerDataStore = _loginner.VerifyLogin("Krutoi").VerifyPassword("228").GetVerifyResult();
+            var loginnerDataStore = _loginner.VerifyLogin("Krutoi").VerifyPassword("225").GetVerifyResult();
 
             Assert.IsTrue(loginnerDataStore.IsVerify);
-            Assert.Equals("", loginnerDataStore);
+            Assert.AreEqual("", loginnerDataStore.AcscessString);
         }
 
         [TestMethod]
@@ -23,7 +28,7 @@ namespace ModelsTest.MVVMLogic_Test.Models_Test
             var loginnerDataStore = _loginner.VerifyLogin("NeKrutoi").VerifyPassword("336").GetVerifyResult();
 
             Assert.IsFalse(loginnerDataStore.IsVerify);
-            Assert.Equals("Неверный логин; Неверный пароль;", loginnerDataStore);
+            Assert.AreEqual("Неверный логин; Неверный пароль; ", loginnerDataStore.AcscessString);
         }
     }
 }

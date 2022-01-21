@@ -1,7 +1,7 @@
 ﻿using Films.Classes.MVVM;
 using Films.MVVMLogic.Models;
 
-namespace Films.MVVMLogic.MVVM
+namespace Films.ViewModels.MainViewModel
 {
     class MainViewModel : INPC
     {
