@@ -1,11 +1,21 @@
 ﻿using System.Collections;
-using System.Security;
 
 namespace Films.ViewModels.MainViewModel.Validations
 {
     public class PasswordValidator : INPC
     {
-        public string Password { get; set; }
+        private string _password;
+
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                if (value.Length <= 25)
+                    _password = value;
+                OnPropertyChanged();
+            }
+        }
 
         public override IEnumerable GetErrors(string propertyName = null)
         {

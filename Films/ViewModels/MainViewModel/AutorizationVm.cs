@@ -29,7 +29,7 @@ namespace Films.ViewModels.MainViewModel
 
             var loginnerTask = await Task.Run(() =>
                     new LoginnerBuilder().VerifyLogin(LoginValidator.Login)
-                        .VerifyPassword(new NetworkCredential(string.Empty, PasswordValidator.SecurePassword).Password).GetVerifyResult()
+                        .VerifyPassword(PasswordValidator.Password).GetVerifyResult()
                 , _singUpToken.Token);
 
             if (loginnerTask.IsVerify)
@@ -43,7 +43,7 @@ namespace Films.ViewModels.MainViewModel
                 System.Windows.MessageBox.Show("Dont Logged");
             }
         }, obg => (!LoginValidator.HasErrors && !PasswordValidator.HasErrors) && 
-                  (LoginValidator.Login?.Length != null && PasswordValidator.SecurePassword?.Length != null));
+                  (LoginValidator.Login?.Length != null && PasswordValidator.Password?.Length != null));
 
         
         public ICommand SignByGhost => new DelegateCommand((obj) =>

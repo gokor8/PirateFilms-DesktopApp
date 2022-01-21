@@ -30,29 +30,38 @@
         </Setter>
     </Style>
 
-    <Style x:Key="AutorizationPasswordBox" TargetType="{x:Type PasswordBox}">
+    <Style x:Key="AutorizationPassword" TargetType="{x:Type TextBox}">
         <Setter Property="Height" Value="30"></Setter>
         <Setter Property="Background" Value="#B2FFFFFF"></Setter>
 
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type PasswordBox}" >
-                    <Border CornerRadius="3" Background="{TemplateBinding Background}">
-                        <ScrollViewer x:Name="PART_ContentHost" Background="Transparent"
-                                      BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border CornerRadius="3" x:Name="BorderText">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}"
+                                     Background="Transparent" x:Name="InvisibleTextBox"
+                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+
+                            <Button Grid.Column="1" Style="{StaticResource ButtonShadowLite}"></Button>
+                        </Grid>
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}" BasedOn="{StaticResource DefaultColorChanger}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=InvisibleTextBox, Path=IsFocused}" Value="True">
+                                        <Setter Property="Background" Value="#D8FFFFFF"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#D8FFFFFF"></Setter>
-            </Trigger>
-            <Trigger Property="IsKeyboardFocusWithin"  Value="True">
-                <Setter Property="Background" Value="#D8FFFFFF"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

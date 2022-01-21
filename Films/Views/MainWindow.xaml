@@ -25,37 +25,37 @@
 
         <Grid x:Name="MainGrid" 
               Grid.Column="0"
-              Height="Auto" Background="#2D474646">
+              Height="Auto" Background="#26474646">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"
                     Height="90" Width="320" Visibility="Hidden"/>
 
             <Border Height="250" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" Background="#4C474646">
+                    BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" Background="#66474646">
                 <Grid DataContext="{Binding AutorizationVM}">
 
                     <Button Command="{Binding SignUp}" x:Name="Autorization"
-                            Content ="ВОЙТИ" Width="90" Height="27"
+                            Content ="ВОЙТИ" Width="110" Height="28"
                             VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,45,0,0"
                             Style="{StaticResource AutorizationButton}"/>
 
                     <Button Command="{Binding SignByGhost}" x:Name="Guest"
-                            Content="ГОСТЬ" FontSize="10.5" Height ="21" Width="90"
+                            Content="ГОСТЬ" FontSize="10.5" Height ="24" Width="110"
                             VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,110,0,0"
                             Style ="{StaticResource AutorizationButton}"/>
 
                     <TextBox Text="{Binding LoginValidator.Login, UpdateSourceTrigger=PropertyChanged}" 
-                             Width="140" Margin="0,0,0,100"
+                             Width="200" Margin="0,0,0,100"
                              FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"
                              Style="{StaticResource AutorizationTextBox}"/>
 
-                    <TextBox Text="{Binding PasswordValidator.P, UpdateSourceTrigger=PropertyChanged}" 
-                             x:Name="Password" Width="140" FontSize="20" 
+                    <TextBox Text="{Binding PasswordValidator.Password, UpdateSourceTrigger=PropertyChanged}" 
+                             x:Name="Password" Width="200" FontSize="20" 
                              VerticalAlignment="Center" HorizontalAlignment="Center"
-                             Margin="0,0,0,29" Style="{StaticResource AutorizationPasswordBox}"/>
+                             Margin="0,0,0,29" Style="{StaticResource AutorizationPassword}"/>
                 </Grid>
             </Border>
             <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                    Height="120" Width="120" BorderThickness="1,1,1,1" CornerRadius="0,100,0,0" Background="#B2FF0000">
+                    Height="120" Width="120" BorderThickness="0,1,1,0" CornerRadius="0,100,0,0" Background="#B2191919">
                 <TextBlock Text="{Binding FilmViewModel.Name}" TextWrapping="Wrap"
                            VerticalAlignment="Bottom" Height="60" Width="80" Margin="0,0,17,15" Background="#00000000" 
                            FlowDirection="LeftToRight" FontSize="15" Foreground="#FFF9F9F9" HorizontalAlignment="Center"/>
