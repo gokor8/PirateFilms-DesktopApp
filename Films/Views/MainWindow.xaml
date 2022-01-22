@@ -36,16 +36,16 @@
 
                     <Button Command="{Binding SignUp}" x:Name="Autorization"
                             Content ="ВОЙТИ" Width="110" Height="28"
-                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,50,0,0"
+                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,55,0,0"
                             Style="{StaticResource AutorizationButton}"/>
 
                     <Button Command="{Binding SignByGhost}" x:Name="Guest"
                             Content="ГОСТЬ" FontSize="10.5" Height ="24" Width="110"
-                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,110,0,0"
+                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,115,0,0"
                             Style ="{StaticResource AutorizationButton}"/>
 
                     <components:RegexTextBox Text="{Binding LoginValidator.Login, UpdateSourceTrigger=PropertyChanged}" 
-                           Width="220" Margin="0,0,0,100"
+                           Width="220" Margin="0,0,0,103"
                            FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"
                            Style="{StaticResource AutorizationTextBox}"/>
 
