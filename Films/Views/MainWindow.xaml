@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mainViewModel="clr-namespace:Films.ViewModels.MainViewModel"
+        xmlns:components="clr-namespace:Films.Views.Components"
         ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -48,10 +49,11 @@
                              FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"
                              Style="{StaticResource AutorizationTextBox}"/>
 
-                    <TextBox Text="{Binding PasswordValidator.Password, UpdateSourceTrigger=PropertyChanged}" 
-                             x:Name="Password" Width="200" FontSize="20" 
-                             VerticalAlignment="Center" HorizontalAlignment="Center"
-                             Margin="0,0,0,29" Style="{StaticResource AutorizationPassword}"/>
+                    <components:BindablePasswordBox Password="{Binding PasswordValidator.Password, UpdateSourceTrigger=PropertyChanged}"
+                                                    Height="30" Width="200"
+                                                    x:Name="PasswordBox" FontSize="20" 
+                                                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                    Margin="0,0,0,29"/>
                 </Grid>
             </Border>
             <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"
