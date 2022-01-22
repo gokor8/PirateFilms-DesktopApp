@@ -11,9 +11,7 @@ namespace Films.ViewModels.MainViewModel.Validations
             get => _password;
             set
             {
-                if (value.Length <= 8)
-                    _password = value;
-                OnPropertyChanged();
+                _password = value;
             }
         }
 
