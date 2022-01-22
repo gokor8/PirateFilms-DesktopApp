@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,8 @@ namespace Films.Views.Components
     /// </summary>
     public partial class BindablePasswordBox : UserControl
     {
+        private static readonly Regex regex = new Regex("^[a-zA-Z0-9]+$");
+
         public static readonly DependencyProperty PropertyTypeProperty = DependencyProperty.Register(
             "Password", typeof(string),
             typeof(BindablePasswordBox), new FrameworkPropertyMetadata(
@@ -56,9 +59,18 @@ namespace Films.Views.Components
         private void PasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
         {
             _isPasswordChanging = true;
+
             Password = PasswordBox.Password;
             PasswordTextBox.Text = PasswordBox.Password;
+
             _isPasswordChanging = false;
+        }
+
+        protected override void OnPreviewTextInput(TextCompositionEventArgs e)
+        {
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
         }
 
         private void UpdatePassword()
