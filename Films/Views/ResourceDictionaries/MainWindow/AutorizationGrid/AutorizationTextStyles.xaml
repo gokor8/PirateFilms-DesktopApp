@@ -31,39 +31,4 @@
         </Setter>
     </Style>
 
-    <Style x:Key="AutorizationPassword" TargetType="{x:Type components:BindablePasswordBox}">
-        <Setter Property="Height" Value="30"></Setter>
-        <Setter Property="Background" Value="#B2FFFFFF"></Setter>
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type components:BindablePasswordBox}">
-                    <Border CornerRadius="3" x:Name="BorderText">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <components:BindablePasswordBox Grid.Column="0" Password="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}"
-                                     Background="Transparent" x:Name="InvisibleTextBox"
-                                     BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                            </components:BindablePasswordBox>
-
-                            <RadioButton Grid.Column="1" x:Name="ShowPasswordButton"></RadioButton>
-                        </Grid>
-                        <Border.Style>
-                            <Style TargetType="{x:Type Border}" BasedOn="{StaticResource DefaultColorChanger}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=InvisibleTextBox, Path=IsFocused}" Value="True">
-                                        <Setter Property="Background" Value="#D8FFFFFF"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
 </ResourceDictionary>

@@ -13,7 +13,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="15" BorderThickness="1" x:Name="MainBorder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    <Border CornerRadius="15" BorderThickness="0.5" x:Name="MainBorder"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                             Width="{TemplateBinding Width}">
 
                         <Label Content="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}"
@@ -35,8 +36,10 @@
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding ElementName=MainBorder, Path=ActualWidth, Converter={StaticResource WidthConverter}}"
                                      Value="false">
-                            <Setter TargetName ="MainBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}"/>
-                            <Setter TargetName ="MainBorder" Property="ToolTip" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content, Mode=OneWay}"/>
+                            <Setter TargetName ="MainBorder" Property="Background" 
+                                    Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}"/>
+                            <Setter TargetName ="MainBorder" Property="ToolTip" 
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content, Mode=OneWay}"/>
                             <Setter TargetName="ButtonLabel" Property="Visibility" Value="Hidden"></Setter>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
