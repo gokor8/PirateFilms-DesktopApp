@@ -98,6 +98,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web_Test\BingSearch_Test\Bing_ImageElement_Test.cs" />
     <Compile Include="Web_Test\HttpClients_Test\SiteFilmsHttp_Test.cs" />
+    <Compile Include="Web_Test\Parsers\SiteParser_test.cs" />
+    <Compile Include="Web_Test\SiteSearchers\BingSiteSearcher_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
