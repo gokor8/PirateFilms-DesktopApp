@@ -10,9 +10,7 @@ namespace Films.ViewModels.MainViewModel.Validations
             get => _login;
             set
             {
-                if (value.Length <= 25)
-                    _login = value;
-                OnPropertyChanged();
+                _login = value;
             }
         }
 

@@ -4,7 +4,10 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../BasedOnStyles.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="../BasedOnValidationStyles.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
+
+    <ToolTip x:Key="ValidationToolTip" Style="{StaticResource MultiValidationToolTip}"></ToolTip>
 
     <Style x:Key="AppToolTip"
            TargetType="ToolTip">
@@ -25,36 +28,19 @@
         
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TextBox}">
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
 
-                    <Border CornerRadius="3" x:Name="BorderText">
-                        <Grid>
-                            <TextBox Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}"
-                                 Background="Transparent" x:Name="InvisibleTextBox"
-                                 BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                        </Grid>
-                        <Border.Style>
-                            <Style TargetType="{x:Type Border}" BasedOn="{StaticResource DefaultColorChanger}">
-                             
-                            </Style>
-                        </Border.Style>
+                    <Border CornerRadius="3" x:Name="BorderText" Style="{StaticResource DefaultColorChanger}">
+
+                        <ScrollViewer VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="PART_ContentHost"/>
                     </Border>
 
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="BorderText" Property="Background" Value="#D8FFFFFF"></Setter>
+                        </Trigger>
                         <Trigger Property="Validation.HasError" Value="True">
-                            <Setter Property="ToolTip">
-                                <Setter.Value>
-                                    <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="3">
-                                        <ItemsControl ItemsSource="{TemplateBinding Validation.Errors}">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Foreground="Red" Text="{Binding ErrorContent}"></TextBlock>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </Border>
-                                </Setter.Value>
-                            </Setter>
+                            <Setter Property="ToolTip" Value="{StaticResource ValidationToolTip}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
 
