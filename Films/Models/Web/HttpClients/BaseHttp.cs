@@ -47,5 +47,11 @@ namespace Films.Web.HttpClients
             }
             return value.Trim();
         }
+
+        public void ClearAllHeaders()
+        {
+            Client.DefaultRequestHeaders.Clear(); 
+            Client.DefaultRequestHeaders.Add("User-Agent", "AmPirate");
+        }
     }
 }
