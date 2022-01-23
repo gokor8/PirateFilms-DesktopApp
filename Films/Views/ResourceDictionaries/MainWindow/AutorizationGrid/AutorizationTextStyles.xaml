@@ -6,26 +6,58 @@
         <ResourceDictionary Source="../BasedOnStyles.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
+    <Style x:Key="AppToolTip"
+           TargetType="ToolTip">
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border>
+                        <ItemsControl ItemsSource="{Binding Validation.Errors}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="AutorizationTextBox" TargetType="{x:Type TextBox}">
         <Setter Property="Height" Value="30"></Setter>
- 
+        
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
+
                     <Border CornerRadius="3" x:Name="BorderText">
-                        <TextBox Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}"
+                        <Grid>
+                            <TextBox Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}"
                                  Background="Transparent" x:Name="InvisibleTextBox"
                                  BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                        </Grid>
                         <Border.Style>
                             <Style TargetType="{x:Type Border}" BasedOn="{StaticResource DefaultColorChanger}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=InvisibleTextBox, Path=IsFocused}" Value="True">
-                                        <Setter Property="Background" Value="#D8FFFFFF"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
+                             
                             </Style>
                         </Border.Style>
                     </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip">
+                                <Setter.Value>
+                                    <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="3">
+                                        <ItemsControl ItemsSource="{TemplateBinding Validation.Errors}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Foreground="Red" Text="{Binding ErrorContent}"></TextBlock>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Border>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

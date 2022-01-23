@@ -8,6 +8,9 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#D8FFFFFF"></Setter>
             </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="Background" Value="#D8FFFFFF"></Setter>
+            </Trigger>
         </Style.Triggers>
     </Style>
 

@@ -40,7 +40,7 @@
                                     Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}"/>
                             <Setter TargetName ="MainBorder" Property="ToolTip" 
                                     Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content, Mode=OneWay}"/>
-                            <Setter TargetName="ButtonLabel" Property="Visibility" Value="Hidden"></Setter>
+                            <Setter TargetName="ButtonLabel" Property="Visibility" Value="Hidden"/>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
