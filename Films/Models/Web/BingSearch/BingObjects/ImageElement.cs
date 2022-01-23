@@ -10,19 +10,21 @@ namespace Films.Web.BingSearch.BingObjects
 {
     public class ImageElement : IBingElement
     {
-        private const string image = "images";
-        public string SearchParametrs { get; private set; }
-        private readonly PublicHttp httpClient = PublicHttp.GetInstance();
+        private const string IMAGE = "images/";
+
+        private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
         public ImageElement(string searchParametrs)
         {
             SearchParametrs = searchParametrs;
         }
 
+        public string SearchParametrs { get; private set; }
+
         public async Task<string> GetWorkingLink(string htmlСontent)
         {
-            IDocument htmlDocument = await httpClient.Context.OpenAsync(html => html.Content(htmlСontent));
-            string linkPicture = "";
+            IDocument htmlDocument = await _publicHttp.Context.OpenAsync(html => html.Content(htmlСontent));
+            string linkPicture = string.Empty;
 
             foreach (var filmImage in htmlDocument.QuerySelectorAll("div.imgpt a.iusc"))
             {
@@ -34,15 +36,15 @@ namespace Films.Web.BingSearch.BingObjects
 
                 if (linkPicture != null)
                 {
-                    try
-                    {
-                        var codeRequest = await httpClient.Client.GetAsync(linkPicture);
+                    /*try
+                    {*/
+                        var codeRequest = await _publicHttp.Client.GetAsync(linkPicture);
                         linkCode = codeRequest.StatusCode;
-                    }
+                    /*}
                     catch (Exception)
                     {
                         continue;
-                    }
+                    }*/
                 }
 
                 if(linkCode == HttpStatusCode.OK)
@@ -54,7 +56,7 @@ namespace Films.Web.BingSearch.BingObjects
 
         public string GetObjectType()
         {
-            return image;
+            return IMAGE;
         }
 
         private class JsonImageBing

@@ -100,6 +100,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Models\Web\ISearcher.cs" />
+    <Compile Include="Models\Web\Parsers\SiteParser.cs" />
+    <Compile Include="Models\Web\SiteSearchers\BingSiteSearcher.cs" />
+    <Compile Include="Models\Web\SiteSearchers\LocalSiteSearcher.cs" />
+    <Compile Include="Models\Web\SiteSetter.cs" />
     <Compile Include="ViewModels\MainViewModel\Validations\LoginValidator.cs" />
     <Compile Include="ViewModels\MainViewModel\Validations\PasswordValidator.cs" />
     <Compile Include="Views\App.xaml.cs">
