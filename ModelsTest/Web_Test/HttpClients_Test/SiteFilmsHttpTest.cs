@@ -1,14 +1,15 @@
 ﻿using System.Threading.Tasks;
+using Films.Models.Web.HttpClients;
 using Films.Web.HttpClients;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModelsTest.Web_Test.HttpClients_Test
 {
     [TestClass]
-    public class SiteFilmsHttp_Test
+    public class SiteFilmsHttpTest
     {
         [TestMethod]
-        public async Task Initialize_working_site()
+        public async Task Check_site_performance()
         {
             SiteFilmsHttp siteFilmsHttp = SiteFilmsHttp.GetInstance();
 

@@ -1,4 +1,4 @@
-﻿using Films.MVVMLogic.Models;
+﻿using Films.Models.Loginners;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModelsTest.MVVMLogic_Test.Models_Test
@@ -16,7 +16,7 @@ namespace ModelsTest.MVVMLogic_Test.Models_Test
         [TestMethod]
         public void GetVerifyResult_true_verify_login_password()
         {
-            var loginnerDataStore = _loginner.VerifyLogin("Krutoi").VerifyPassword("225").GetVerifyResult();
+            var loginnerDataStore = _loginner.VerifyLogin("Krutoi").VerifyPassword("123456").GetVerifyResult();
 
             Assert.IsTrue(loginnerDataStore.IsVerify);
             Assert.AreEqual("", loginnerDataStore.AcscessString);

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Films.Models.ScrollFilms;
 using Films.MVVMLogic.Models;
-using Films.MVVMLogic.Models.ImagesScroll;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModelsTest.MVVMLogic_Test.Models_Test
