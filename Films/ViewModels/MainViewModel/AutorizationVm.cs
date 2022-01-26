@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Films.Classes.MVVM;
 using Films.Classes.MVVM.Buttons;
+using Films.Models.Loginners;
 using Films.MVVMLogic.Models;
 using Films.ViewModels.MainViewModel.Validations;
 
