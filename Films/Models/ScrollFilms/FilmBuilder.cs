@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
+using Films.MVVMLogic.Models;
 using Films.Web.HttpClients;
 
-namespace Films.MVVMLogic.Models.ImagesScroll
+namespace Films.Models.ScrollFilms
 {
     public class FilmBuilder
     {
@@ -25,10 +27,13 @@ namespace Films.MVVMLogic.Models.ImagesScroll
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\AMFilms";
             Directory.CreateDirectory(appData);
 
+            string downloadedPicturePath = string.Empty;
             //Скачиваю картинку
-            var downloadTask = _publicHttp.Download(link, appData + "/" + numberFilm + ".jpg");
-            downloadTask.Wait();
-            Film.Picture = downloadTask.Result;
+            Task.Run(async () =>
+            {
+                downloadedPicturePath = await _publicHttp.Download(link, appData + "/" + numberFilm + ".jpg");
+            }).Wait();
+            Film.Picture = downloadedPicturePath;
 
             return this;
         }

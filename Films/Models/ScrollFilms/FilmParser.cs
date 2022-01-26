@@ -2,13 +2,13 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using AngleSharp;
-using Films.MVVMLogic.Models.Web.Parsers;
-using Films.Web.BingSearch;
-using Films.Web.BingSearch.BingObjects;
-using Films.Web.HttpClients; 
+using Films.Models.Web.BingSearch;
+using Films.Models.Web.BingSearch.BingObjects;
+using Films.Models.Web.HttpClients;
+using Films.Models.Web.Parsers;
+using Films.MVVMLogic.Models;
 
-namespace Films.MVVMLogic.Models.ImagesScroll
+namespace Films.Models.ScrollFilms
 {
     public class FilmParser
     {
@@ -41,25 +41,21 @@ namespace Films.MVVMLogic.Models.ImagesScroll
 
                     while (linkImage == "" && linkImageIterations != 3)
                     {
-                        linkImage = await bing.GetLink(nameFilm,
-                            new ImageElement("&qft=+filterui%3aimagesize-custom_1000_1000&first=1&tsc=ImageBasicHover"));
+                        var linkCollection = await bing.GetLinksAsync(nameFilm,
+                            new ImageElement(
+                                "&qft=+filterui%3aimagesize-custom_1000_1000&first=1&tsc=ImageBasicHover"));
+
+                        linkImage = linkCollection.First();
 
                         if (linkImage == "")
                             await Task.Delay(1000);
                         linkImageIterations++;
                     }
 
-                    try
-                    {
-                        var filmBuilder = new FilmBuilder().SetName(nameFilm).DownloadPicture(linkImage, copyCount)
-                            .ValidateLink();
+                    var filmBuilder = new FilmBuilder().SetName(nameFilm).DownloadPicture(linkImage, copyCount)
+                        .ValidateLink();
 
-                        OnFilm?.Invoke(filmBuilder.Film);
-                    }
-                    catch(Exception exc)
-                    {
-                        Debug.WriteLine($"Плохая ссылка в |Images 49| {linkImage}" + exc.StackTrace);
-                    }
+                    OnFilm?.Invoke(filmBuilder.Film);
                 });
             }
         }

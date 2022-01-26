@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
-using Films.MVVMLogic.Models.ImagesScroll;
+using Films.Models.ScrollFilms;
 
 namespace Films.MVVMLogic.Models
 {
