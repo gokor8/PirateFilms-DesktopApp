@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AngleSharp;
 
-namespace Films.Web.HttpClients
+namespace Films.Models.Web.HttpClients
 {
     public abstract class BaseHttp
     {
@@ -17,9 +17,17 @@ namespace Films.Web.HttpClients
         protected BaseHttp()
         {
             CookieContainer = new CookieContainer();
-            _handler = new HttpClientHandler() { CookieContainer = CookieContainer };
+            _handler = new HttpClientHandler() { 
+                CookieContainer = CookieContainer,
+                AllowAutoRedirect = true,
+                UseCookies = true,
+                PreAuthenticate = true,
+                UseDefaultCredentials = true
+            };
             Client = new HttpClient(_handler);
             Context = BrowsingContext.New(Configuration.Default);
+            
+            SetDefaultHeaders();
         }
 
         public async Task<string> Download(string link, string path)
@@ -48,10 +56,17 @@ namespace Films.Web.HttpClients
             return value.Trim();
         }
 
+        public void SetDefaultHeaders()
+        {
+            Client.DefaultRequestHeaders.Add("User-Agent", "AmPirate");
+            Client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8");
+            Client.DefaultRequestHeaders.Add("Accept-Language", "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3");
+        }
+
         public void ClearAllHeaders()
         {
-            Client.DefaultRequestHeaders.Clear(); 
-            Client.DefaultRequestHeaders.Add("User-Agent", "AmPirate");
+            Client.DefaultRequestHeaders.Clear();
+            SetDefaultHeaders();
         }
     }
 }

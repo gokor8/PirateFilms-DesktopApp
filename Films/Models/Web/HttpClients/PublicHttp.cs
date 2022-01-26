@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+using Films.Models.Web.HttpClients;
 
 namespace Films.Web.HttpClients
 {

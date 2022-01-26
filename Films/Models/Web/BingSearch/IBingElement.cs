@@ -1,13 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Films.Web.BingSearch
+namespace Films.Models.Web.BingSearch
 {
     public interface IBingElement
     {
         string SearchParametrs { get; }
-
-        Task<string> GetWorkingLink(string htmlСontent);
-
+        IAsyncEnumerable<string> GetWorkingLinksAsync(string htmlСontent);
         string GetObjectType();
     }
 }

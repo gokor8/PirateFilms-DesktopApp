@@ -1,56 +1,64 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+using System.Net.Http;
 using AngleSharp;
 using AngleSharp.Dom;
-using Films.MVVMLogic.Models.Web.Parsers;
-using Films.Web.BingSearch;
+using Films.Models.Web.Parsers;
 using Films.Web.HttpClients;
 
-namespace Films.Classes.BingSearch
+namespace Films.Models.Web.BingSearch.BingObjects
 {
-    public class SearchElement : IBingElement
+    public sealed class SearchElement : IBingElement
     {
-        private const string SEARCH = "";
-        
-        private PublicHttp _publicHttp = PublicHttp.GetInstance();
+        private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
         public SearchElement()
         {}
         public SearchElement(string searchParametrs) 
             => SearchParametrs= searchParametrs;
 
-        public string SearchParametrs { get; private set; }
+        public string SearchParametrs { get; }
 
-        public async Task<string> GetWorkingLink(string htmlContent)
+        public async IAsyncEnumerable<string> GetWorkingLinksAsync(string htmlContent)
         {
-            IDocument angleHtml = await _publicHttp.Context.OpenAsync(html => html.Content(htmlContent));
-            string worksSiteLink = string.Empty;
+            IDocument angleDocument = await _publicHttp.Context.OpenAsync(html => html.Content(htmlContent));
 
-            foreach (var linksElement in angleHtml.QuerySelector("#b_results").QuerySelectorAll("cite"))
+            foreach (var linksElement in angleDocument.QuerySelector("#b_results")?.QuerySelectorAll("li.b_algo"))
             {
-                worksSiteLink = linksElement.TextContent;
+                //HttpResponseMessage httpResponse = null;
+                string workingLink = linksElement.QuerySelector("a")?.GetAttribute("href");
 
-                var httpResponse = await _publicHttp.Client.GetAsync(worksSiteLink);
+                HttpResponseMessage httpResponse;
 
-                if (httpResponse.StatusCode == HttpStatusCode.OK)
-                {
-                    var siteHtml = await httpResponse.Content.ReadAsStringAsync();
-                    var siteFilmNamesCollection = await new SiteParser().GetPopularFilmsName(siteHtml, 5);
-
-                    if (siteFilmNamesCollection.Count() == 5)
-                        return worksSiteLink;
+                try
+                { 
+                    httpResponse = await _publicHttp.Client.GetAsync(workingLink);
+                    if (!httpResponse.IsSuccessStatusCode)
+                    {
+                        continue;
+                    }
                 }
+                catch (Exception)
+                {
+                    continue;
+                }
+
+                var siteHtml = await httpResponse.Content.ReadAsStringAsync();
+                //Проверка на корректный html, методом парсинга
+                var filmNamesCollection = await new SiteParser().GetPopularFilmsName(siteHtml, 5);
+
+                if (filmNamesCollection.Count() == 5)
+                    yield return workingLink;
             }
-            
-            return System.Configuration.ConfigurationManager.
+
+            yield return System.Configuration.ConfigurationManager.
                 ConnectionStrings["BackUpLink"].ConnectionString;
         }
 
         public string GetObjectType()
         {
-            return SEARCH;
+            return string.Empty;
         }
     }
 }

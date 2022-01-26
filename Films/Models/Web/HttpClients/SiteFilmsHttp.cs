@@ -2,21 +2,21 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Films.Web.HttpClients
+namespace Films.Models.Web.HttpClients
 {
     public class SiteFilmsHttp : BaseHttp
     {
-        private static SiteFilmsHttp _instance = new SiteFilmsHttp();
+        private static readonly SiteFilmsHttp _instance = new SiteFilmsHttp();
         public SiteFilmsHttp()
         {
             SetSiteHeaders();
         }
         private void SetSiteHeaders()
         {
-            //Client.DefaultRequestHeaders.Host = "n.lordfilms-film.online";
-            Client.DefaultRequestHeaders.Add("Referer", "https://yandex.ru/");
-            Client.DefaultRequestHeaders.Add("User-Agent", "Fiddler Everywhere");
-            Client.BaseAddress = new Uri("https://lordik.lordfilm.cfd/film/");
+            //Client.DefaultRequestHeaders.Add("Referer", "https://yandex.ru/");
+            //Client.DefaultRequestHeaders.Add("User-Agent", "Fiddler Everywhere");
+            Client.BaseAddress = new Uri(new SiteFabric().CreateSiteLink());
+            Client.DefaultRequestHeaders.Host = Client.BaseAddress.Host;
         }
 
         public override Task<Stream> GetStreamClient(string link)

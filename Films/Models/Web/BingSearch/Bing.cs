@@ -1,80 +1,87 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using Films.Web.HttpClients;
 
-namespace Films.Web.BingSearch
+namespace Films.Models.Web.BingSearch
 {
     public sealed class Bing
     {
         private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
-        private IBingElement typeObject;
+        private IBingElement bingElement;
 
         public Bing()
         {
-            InitializeBing().Wait();
+            _publicHttp.SetDefaultHeaders();
         }
 
-        public async Task<string> GetLink(string textRequest, IBingElement typeObject)
+        public async Task<IEnumerable<string>> GetLinksAsync(string textRequest, IBingElement bingElement, bool areAllLinks = false)
         {
-            this.typeObject = typeObject;
+            this.bingElement = bingElement;
 
-            SetBingsHeaders();
-            //Проверка на работоспособность поиска
-            //Если не срабатывает, то делаем повторный запрос + инициализацию
-            string contentRequest = await GetSearchResult(textRequest);
+            string contentRequest = null;
+            int numberIteration = 0;
 
-            if (contentRequest != null)
+            //3 цикла == 3 попытки на получение нормального ответа с данными из бинга
+            while (contentRequest == null && numberIteration != 3)
             {
-                return await typeObject.GetWorkingLink(contentRequest);
+                numberIteration++;
+
+                await InitializeBingAsync();
+
+                contentRequest = await GetSearchResultAsync(textRequest);
             }
 
-            await InitializeBing();
-            contentRequest = await GetSearchResult(textRequest);
+            var asyncLinkCollection = areAllLinks
+                ? bingElement.GetWorkingLinksAsync(contentRequest)
+                : bingElement.GetWorkingLinksAsync(contentRequest).Take(1);
 
-            string workingLink = await typeObject.GetWorkingLink(contentRequest);
+            List<string> links= new List<string>();
+            await asyncLinkCollection.ForEachAsync(l => links.Add(l));
 
-            _publicHttp.ClearAllHeaders();
-
-            return workingLink;
+            return links;
         }
 
-        private async Task<string> GetSearchResult(string textRequest)
+        private async Task<string> GetSearchResultAsync(string textRequest)
         {
             textRequest = $"https://www.bing.com/" +
-                          $"{typeObject.GetObjectType()}" +
+                          $"{bingElement.GetObjectType()}" +
                           $"search?q={HttpUtility.UrlEncode(textRequest.Trim().Replace(" ", "+"))}" +
-                          $"{typeObject.SearchParametrs}";
-            var response = await _publicHttp.Client?.GetAsync(textRequest);
+                          "&rdr=1" +
+                          $"{bingElement.SearchParametrs}";
+            var response = await _publicHttp.Client?.GetAsync(textRequest)!;
 
-            //Если нет кукисов, то все отлично, поисковик работает
+            string html = await response.Content.ReadAsStringAsync();
 
-            var headersCookies = response.Headers.Where(i => i.Key == "Set-Cookie");
-
-            return headersCookies.Count() <= 1 ? await response.Content.ReadAsStringAsync() : null;
+            int htmlByteCount = System.Text.Encoding.Unicode.GetByteCount(html);
+            //74438 true with Accept-Encoding || Without Accept-Encoding 318910 true
+            return await response.Content.ReadAsStringAsync();
         }
 
-        public async Task InitializeBing()
+        public async Task InitializeBingAsync()
         {
             var response = await _publicHttp.Client.GetAsync("https://www.bing.com/");
-            foreach (var cookie in response.Headers.FirstOrDefault(i => i.Key == "Set-Cookie").Value)
+
+            var responseCookies = response.Headers.FirstOrDefault(c => c.Key == "Set-Cookie").Value;
+
+            if (responseCookies.Count() <= 1)
+                return;
+
+            foreach (var cookie in responseCookies)
             {
                 string name = cookie.Substring(0, cookie.IndexOf("="));
                 string value = cookie.Substring(cookie.IndexOf("=") + 1, cookie.IndexOf(";") - (cookie.IndexOf("=") + 1));
                 _publicHttp.CookieContainer.Add(new Uri("https://www.bing.com/"), new Cookie(name, value));
             }
-
-            SetBingsHeaders();
         }
 
-        private void SetBingsHeaders()
+        ~Bing()
         {
-            _publicHttp.Client.DefaultRequestHeaders.Add("Encoding", "gzip, deflate, br");
-            _publicHttp.Client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8");
-            _publicHttp.Client.DefaultRequestHeaders.Add("Accept-Language", "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3");
+            _publicHttp.ClearAllHeaders();
         }
     }
 }

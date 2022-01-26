@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AngleSharp;
 using AngleSharp.Dom;
 using Films.Web.HttpClients;
 using Newtonsoft.Json;
 
-namespace Films.Web.BingSearch.BingObjects
+namespace Films.Models.Web.BingSearch.BingObjects
 {
-    public class ImageElement : IBingElement
+    public sealed class ImageElement : IBingElement
     {
         private const string IMAGE = "images/";
 
@@ -19,9 +21,9 @@ namespace Films.Web.BingSearch.BingObjects
             SearchParametrs = searchParametrs;
         }
 
-        public string SearchParametrs { get; private set; }
+        public string SearchParametrs { get; }
 
-        public async Task<string> GetWorkingLink(string htmlСontent)
+        public async IAsyncEnumerable<string> GetWorkingLinksAsync(string htmlСontent)
         {
             IDocument htmlDocument = await _publicHttp.Context.OpenAsync(html => html.Content(htmlСontent));
             string linkPicture = string.Empty;
@@ -32,26 +34,23 @@ namespace Films.Web.BingSearch.BingObjects
                 //Получаем ссылку на картинку, и проверяем ссылку на валидность(и блокировку)
                 linkPicture = JsonConvert.DeserializeObject<JsonImageBing>(mAttribute)?.Murl;
 
-                var linkCode = HttpStatusCode.BadRequest;
+                HttpResponseMessage siteResponseMessage = null;
 
                 if (linkPicture != null)
                 {
-                    /*try
-                    {*/
-                        var codeRequest = await _publicHttp.Client.GetAsync(linkPicture);
-                        linkCode = codeRequest.StatusCode;
-                    /*}
-                    catch (Exception)
+                    try
                     {
-                        continue;
-                    }*/
+                        siteResponseMessage = await _publicHttp.Client.GetAsync(linkPicture);
+                    } catch (Exception)
+                    { continue; }
                 }
 
-                if(linkCode == HttpStatusCode.OK)
-                     return linkPicture;
+                if(siteResponseMessage.StatusCode == HttpStatusCode.OK &&
+                   !siteResponseMessage.RequestMessage.RequestUri.Host.Contains("warning.rt"))
+                     yield return linkPicture;
             }
 
-            return linkPicture;
+            yield return linkPicture;
         }
 
         public string GetObjectType()
