@@ -45,8 +45,12 @@ namespace Films.Models.Web.BingSearch.BingObjects
                     { continue; }
                 }
 
-                if(siteResponseMessage.StatusCode == HttpStatusCode.OK &&
-                   !siteResponseMessage.RequestMessage.RequestUri.Host.Contains("warning.rt"))
+                string endLinkPicture = linkPicture
+                    .Substring(linkPicture.Length - 6, linkPicture.Length - (linkPicture.Length - 6));
+
+                if (siteResponseMessage.StatusCode == HttpStatusCode.OK &&
+                   !siteResponseMessage.RequestMessage.RequestUri.Host.Contains("warning.rt") &&
+                   (!endLinkPicture.Contains("?") && endLinkPicture.Contains(".")))
                      yield return linkPicture;
             }
 
