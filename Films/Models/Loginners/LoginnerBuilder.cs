@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Films.MVVMLogic.Models.DataBaseLogic;
+using Films.Models.DataBaseLogic.UserDataBse;
+using Films.MVVMLogic.Models;
 
-namespace Films.MVVMLogic.Models
+namespace Films.Models.Loginners
 {
     public class LoginnerBuilder
     {
