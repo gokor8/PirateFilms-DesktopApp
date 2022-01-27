@@ -114,10 +114,10 @@
     </Page>
     <Compile Include="Models\DataBaseLogic\LinksDataBase\Link.cs" />
     <Compile Include="Models\DataBaseLogic\LinksDataBase\SitesContext.cs" />
-    <Compile Include="Models\Web\ISearcher.cs" />
-    <Compile Include="Models\Web\Parsers\SiteParser.cs" />
-    <Compile Include="Models\Web\SiteSearchers\BingSiteSearcher.cs" />
-    <Compile Include="Models\Web\SiteSearchers\LocalSiteSearcher.cs" />
+    <Compile Include="Models\Web\BingSearch\ISearcher.cs" />
+    <Compile Include="Models\Web\Parsers\LordfilmParser.cs" />
+    <Compile Include="Models\Web\BingSearch\SiteSearchers\BingSiteSearcher.cs" />
+    <Compile Include="Models\Web\BingSearch\SiteSearchers\LocalSiteSearcher.cs" />
     <Compile Include="Models\Web\SiteFabric.cs" />
     <Compile Include="ViewModels\MainViewModel\Validations\LoginValidator.cs" />
     <Compile Include="ViewModels\MainViewModel\Validations\PasswordValidator.cs" />
@@ -166,10 +166,10 @@
     <Compile Include="ViewModels\MainViewModel\AutorizationVm.cs" />
     <Compile Include="ViewModels\MainViewModel\FilmViewModel.cs" />
     <Compile Include="Models\Web\BingSearch\Bing.cs" />
-    <Compile Include="Models\Web\BingSearch\BingObjects\ImageElement.cs" />
+    <Compile Include="Models\Web\BingSearch\BingObjects\BingImageParser.cs" />
     <Compile Include="Models\ScrollFilms\FilmParser.cs" />
-    <Compile Include="Models\Web\BingSearch\BingObjects\SearchElement.cs" />
-    <Compile Include="Models\Web\BingSearch\IBingElement.cs" />
+    <Compile Include="Models\Web\BingSearch\BingObjects\BingSearchParser.cs" />
+    <Compile Include="Models\Web\BingSearch\IBingParser.cs" />
     <Compile Include="Models\Web\HttpClients\BaseHttp.cs" />
     <Compile Include="Models\Web\HttpClients\PublicHttp.cs" />
     <Compile Include="Models\ScrollFilms\FilmBuilder.cs" />

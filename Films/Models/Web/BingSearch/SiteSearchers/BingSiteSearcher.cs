@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Threading.Tasks;
 using Films.Models.DataBaseLogic.LinksDataBase;
-using Films.Models.Web.BingSearch;
 using Films.Models.Web.BingSearch.BingObjects;
 using Films.MVVMLogic.Models.DataBaseLogic.LinksDataBase;
 
-namespace Films.Models.Web.SiteSearchers
+namespace Films.Models.Web.BingSearch.SiteSearchers
 {
     public class BingSiteSearcher : ISearcher
     {
@@ -16,7 +14,7 @@ namespace Films.Models.Web.SiteSearchers
         public async IAsyncEnumerable<string> SearchWorkingSitesAsync()
         {
             var workingSiteLinks = await new Bing()
-                .GetLinksAsync(SiteName, new SearchElement(), true);
+                .GetLinksAsync(SiteName, new BingSearchParser(), true);
 
             _ = Task.Run(() => refreshDatabaseLinks(workingSiteLinks));
 
@@ -32,10 +30,7 @@ namespace Films.Models.Web.SiteSearchers
             {
                 foreach (var workingLink in workingSites)
                 {
-                    if (context.Links.FirstOrDefault(l=>l.WorkingLink == workingLink) == null)
-                    {
-                        context.Links.Add(new Link() { WorkingLink = workingLink });
-                    }
+                    context.Links.AddOrUpdate(new Link() { WorkingLink = workingLink });
                 }
 
                 context.SaveChanges();

@@ -4,7 +4,7 @@ using System.Net.Http;
 using Films.Models.DataBaseLogic.LinksDataBase;
 using Films.Web.HttpClients;
 
-namespace Films.Models.Web.SiteSearchers
+namespace Films.Models.Web.BingSearch.SiteSearchers
 {
     public class LocalSiteSearcher : ISearcher
     {
@@ -38,14 +38,5 @@ namespace Films.Models.Web.SiteSearchers
             }
         }
 
-        /*public async Task<string> GetFirstLinkAsync()
-        {
-            return await SearchWorkingSitesAsync().FirstAsync();
-        }
-
-        public IEnumerable<string> GetFirstWorkingLink()
-        {
-
-        }*/
     }
 }

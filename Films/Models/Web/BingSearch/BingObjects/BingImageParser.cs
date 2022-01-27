@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using AngleSharp;
 using AngleSharp.Dom;
 using Films.Web.HttpClients;
@@ -10,18 +9,19 @@ using Newtonsoft.Json;
 
 namespace Films.Models.Web.BingSearch.BingObjects
 {
-    public sealed class ImageElement : IBingElement
+    public sealed class BingImageParser : IBingParser
     {
         private const string IMAGE = "images/";
 
         private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
-        public ImageElement(string searchParametrs)
+        public BingImageParser(string searchParametrs)
         {
             SearchParametrs = searchParametrs;
         }
 
         public string SearchParametrs { get; }
+
 
         public async IAsyncEnumerable<string> GetWorkingLinksAsync(string htmlСontent)
         {

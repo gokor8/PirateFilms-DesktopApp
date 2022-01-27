@@ -1,13 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Films.Models.Web.BingSearch
 {
-    public interface IBingElement
+    public interface IBingParser
     {
         string SearchParametrs { get; }
+
         IAsyncEnumerable<string> GetWorkingLinksAsync(string htmlСontent);
+
         string GetObjectType();
     }
 }

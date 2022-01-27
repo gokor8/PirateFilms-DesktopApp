@@ -12,38 +12,38 @@ namespace Films.Models.Web.BingSearch
     {
         private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
-        private IBingElement bingElement;
+        private IBingParser bingElement;
 
         public Bing()
         {
             _publicHttp.SetDefaultHeaders();
         }
 
-        public async Task<IEnumerable<string>> GetLinksAsync(string textRequest, IBingElement bingElement, bool areAllLinks = false)
+        public async Task<IEnumerable<string>> GetLinksAsync(string textRequest, IBingParser bingElement, bool areAllLinks = false)
         {
             this.bingElement = bingElement;
 
-            string contentRequest = null;
+            string contentResponse = null;
             int numberIteration = 0;
 
             //3 цикла == 3 попытки на получение нормального ответа с данными из бинга
-            while (contentRequest == null && numberIteration != 3)
+            while (contentResponse == null && numberIteration != 3)
             {
                 numberIteration++;
 
                 await InitializeBingAsync();
 
-                contentRequest = await GetSearchResultAsync(textRequest);
+                contentResponse = await GetBingResponse(textRequest);
             }
 
             var asyncLinkCollection = areAllLinks
-                ? bingElement.GetWorkingLinksAsync(contentRequest)
-                : bingElement.GetWorkingLinksAsync(contentRequest).Take(1);
+                ? bingElement.GetWorkingLinksAsync(contentResponse)
+                : bingElement.GetWorkingLinksAsync(contentResponse).Take(1);
 
             return await asyncLinkCollection.ToListAsync();
         }
 
-        private async Task<string> GetSearchResultAsync(string textRequest)
+        private async Task<string> GetBingResponse(string textRequest)
         {
             textRequest = $"https://www.bing.com/" +
                           $"{bingElement.GetObjectType()}" +

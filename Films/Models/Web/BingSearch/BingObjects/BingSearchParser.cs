@@ -9,16 +9,19 @@ using Films.Web.HttpClients;
 
 namespace Films.Models.Web.BingSearch.BingObjects
 {
-    public sealed class SearchElement : IBingElement
+    public sealed class BingSearchParser : IBingParser
     {
         private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
-        public SearchElement()
-        {}
-        public SearchElement(string searchParametrs) 
+
+        public BingSearchParser() {}
+
+        public BingSearchParser(string searchParametrs) 
             => SearchParametrs= searchParametrs;
 
-        public string SearchParametrs { get; }
+
+        public string SearchParametrs { get; } = string.Empty;
+
 
         public async IAsyncEnumerable<string> GetWorkingLinksAsync(string htmlContent)
         {
@@ -26,7 +29,6 @@ namespace Films.Models.Web.BingSearch.BingObjects
 
             foreach (var linksElement in angleDocument.QuerySelector("#b_results")?.QuerySelectorAll("li.b_algo"))
             {
-                //HttpResponseMessage httpResponse = null;
                 string workingLink = linksElement.QuerySelector("a")?.GetAttribute("href");
 
                 HttpResponseMessage httpResponse;
@@ -46,7 +48,7 @@ namespace Films.Models.Web.BingSearch.BingObjects
 
                 var siteHtml = await httpResponse.Content.ReadAsStringAsync();
                 //Проверка на корректный html, методом парсинга
-                var filmNamesCollection = await new SiteParser().GetPopularFilmsName(siteHtml, 5);
+                var filmNamesCollection = await new LordfilmParser().GetPopularFilmsName(siteHtml, 5);
 
                 if (filmNamesCollection.Count() == 5)
                     yield return workingLink;

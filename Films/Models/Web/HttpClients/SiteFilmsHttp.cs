@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Films.Models.Web.HttpClients
@@ -9,13 +10,13 @@ namespace Films.Models.Web.HttpClients
         private static readonly SiteFilmsHttp _instance = new SiteFilmsHttp();
         public SiteFilmsHttp()
         {
-            SetSiteHeaders();
+            SetSiteHeaders().Wait();
         }
-        private void SetSiteHeaders()
+        private async Task SetSiteHeaders()
         {
             //Client.DefaultRequestHeaders.Add("Referer", "https://yandex.ru/");
             //Client.DefaultRequestHeaders.Add("User-Agent", "Fiddler Everywhere");
-            Client.BaseAddress = new Uri(new SiteFabric().CreateSiteLink());
+            Client.BaseAddress = new Uri(await new SiteFabric().CreateSiteLink());
             Client.DefaultRequestHeaders.Host = Client.BaseAddress.Host;
         }
 
