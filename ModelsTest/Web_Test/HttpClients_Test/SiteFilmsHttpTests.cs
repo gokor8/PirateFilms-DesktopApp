@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Films.Models.Web.HttpClients;
-using Films.Web.HttpClients;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModelsTest.Web_Test.HttpClients_Test
 {
     [TestClass]
-    public class SiteFilmsHttpTest
+    public class SiteFilmsHttpTests
     {
         [TestMethod]
         public async Task Check_site_performance()

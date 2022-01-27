@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Films.Models.DataBaseLogic.LinksDataBase;
-using Films.Models.Web.SiteSearchers;
+using Films.Models.Web.BingSearch.SiteSearchers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModelsTest.Web_Test.SiteSearchers_Tests
@@ -16,14 +15,22 @@ namespace ModelsTest.Web_Test.SiteSearchers_Tests
         {
             var searcher = new BingSiteSearcher();
 
-            await searcher.SearchWorkingSitesAsync();
+            var workingLinkList = await searcher.SearchWorkingSitesAsync().ToHashSetAsync();
 
-            List<string> workingLinkList = new List<string>();
+            HashSet<string> dbWorkingLinkList = new HashSet<string>();
 
             using (var context = new SitesContext())
-                await context.Links.ForEachAsync(l=> workingLinkList.Add(l.WorkingLink));
+            {
+                foreach (var dbLink in context.Links)
+                {
+                    if (workingLinkList.Contains(dbLink.WorkingLink))
+                    {
+                        dbWorkingLinkList.Add(dbLink.WorkingLink);
+                    }
+                }
+            }
 
-            Assert.AreEqual(searcher.WorkingSites.Count(), workingLinkList.Count);
+            Assert.AreEqual(workingLinkList.Count, workingLinkList.Count);
         }
 
         [TestMethod]
@@ -31,9 +38,9 @@ namespace ModelsTest.Web_Test.SiteSearchers_Tests
         {
             var searcher = new BingSiteSearcher();
 
-            await searcher.SearchWorkingSitesAsync();
+            string workingLink = await searcher.SearchWorkingSitesAsync().Take(1).FirstAsync();
 
-            Assert.AreNotEqual(string.Empty, searcher.WorkingSite);
+            Assert.AreNotEqual(string.Empty, workingLink);
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
-using Films.Models.Web.SiteSearchers;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Films.Models.Web.BingSearch.SiteSearchers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModelsTest.Web_Test.SiteSearchers_Tests
@@ -12,9 +13,9 @@ namespace ModelsTest.Web_Test.SiteSearchers_Tests
         {
             var searcher = new LocalSiteSearcher();
 
-            await searcher.SearchWorkingSitesAsync();
+            var workingLinks = await searcher.SearchWorkingSitesAsync().ToListAsync();
 
-            Assert.IsNotNull(searcher.WorkingSites);
+            Assert.IsNotNull(workingLinks);
         }
 
         [TestMethod]
@@ -22,9 +23,9 @@ namespace ModelsTest.Web_Test.SiteSearchers_Tests
         {
             var searcher = new LocalSiteSearcher();
 
-            await searcher.SearchWorkingSitesAsync();
+            string firstLink = await searcher.SearchWorkingSitesAsync().FirstAsync();
 
-            Assert.AreNotEqual(string.Empty, searcher.WorkingSite);
+            Assert.AreNotEqual(string.Empty, firstLink);
         }
     }
 }
