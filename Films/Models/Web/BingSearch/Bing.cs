@@ -40,10 +40,7 @@ namespace Films.Models.Web.BingSearch
                 ? bingElement.GetWorkingLinksAsync(contentRequest)
                 : bingElement.GetWorkingLinksAsync(contentRequest).Take(1);
 
-            List<string> links= new List<string>();
-            await asyncLinkCollection.ForEachAsync(l => links.Add(l));
-
-            return links;
+            return await asyncLinkCollection.ToListAsync();
         }
 
         private async Task<string> GetSearchResultAsync(string textRequest)

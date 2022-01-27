@@ -13,28 +13,28 @@ namespace Films.Models.Web.SiteSearchers
     {
         private const string SiteName = "lordfilm";
 
-        public string WorkingSite { get; private set; } = string.Empty;
-        public IEnumerable<string> WorkingSites { get; private set; } = new List<string>();
-
-        public async Task SearchWorkingSitesAsync()
+        public async IAsyncEnumerable<string> SearchWorkingSitesAsync()
         {
-            WorkingSites = await new Bing()
+            var workingSiteLinks = await new Bing()
                 .GetLinksAsync(SiteName, new SearchElement(), true);
 
-            WorkingSite = WorkingSites.First();
+            _ = Task.Run(() => refreshDatabaseLinks(workingSiteLinks));
 
-            refreshDatabaseLinks();
+            foreach (var link in workingSiteLinks)
+            {
+                yield return link;
+            }
         }
 
-        private void refreshDatabaseLinks()
+        private void refreshDatabaseLinks(IEnumerable<string> workingSites)
         {
             using (var context = new SitesContext())
             {
-                foreach (var workinglink in WorkingSites)
+                foreach (var workingLink in workingSites)
                 {
-                    if (context.Links.Count(l=>l.WorkingLink == workinglink) <= 0)
+                    if (context.Links.FirstOrDefault(l=>l.WorkingLink == workingLink) == null)
                     {
-                        context.Links.Add(new Link() { WorkingLink = workinglink });
+                        context.Links.Add(new Link() { WorkingLink = workingLink });
                     }
                 }
 
