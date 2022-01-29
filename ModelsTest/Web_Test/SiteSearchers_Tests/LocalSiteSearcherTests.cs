@@ -13,19 +13,29 @@ namespace ModelsTest.Web_Test.SiteSearchers_Tests
         {
             var searcher = new LocalSiteSearcher();
 
-            var workingLinks = await searcher.SearchWorkingSitesAsync().ToListAsync();
+            await searcher.SearchWorkingSitesAsync(true);
 
-            Assert.IsNotNull(workingLinks);
+            Assert.IsNotNull(searcher);
         }
 
         [TestMethod]
-        public async Task Check_came_first_site()
+        public async Task Check_came_first_site_Async()
         {
             var searcher = new LocalSiteSearcher();
 
-            string firstLink = await searcher.SearchWorkingSitesAsync().FirstAsync();
+            await searcher.SearchWorkingSitesAsync();
 
-            Assert.AreNotEqual(string.Empty, firstLink);
+            Assert.AreNotEqual(string.Empty, searcher.WorkingLinks.FirstOrDefault());
+        }
+
+        [TestMethod]
+        public void Check_came_first_site()
+        {
+            var searcher = new LocalSiteSearcher();
+
+            searcher.SearchWorkingSitesAsync().Wait();
+
+            Assert.AreNotEqual(string.Empty, searcher.WorkingLinks.FirstOrDefault());
         }
     }
 }

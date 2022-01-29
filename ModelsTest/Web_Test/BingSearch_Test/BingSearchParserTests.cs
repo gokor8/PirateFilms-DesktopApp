@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Films.Models.Web.BingSearch;
-using Films.Models.Web.BingSearch.BingObjects;
+using Films.Models.Web.BingSearch.Parsers;
+using Films.Models.Web.BingSearch.SettingsSearch;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModelsTest.Web_Test.BingSearch_Test
@@ -12,9 +13,11 @@ namespace ModelsTest.Web_Test.BingSearch_Test
         [TestMethod]
         public async Task Finding_working_lordfilm_link()
         {
-            var workingLinks = await new Bing().GetLinksAsync("lordfilm", new BingSearchParser());
+            var sitesHtml = await new Bing().GetSearchResultAsync("lordfilm", new SearchBingSettings());
 
-            Assert.IsNotNull(workingLinks.FirstOrDefault());
+            string siteLink = await new SearchBingParser().GetWorkingLinksAsync(sitesHtml).FirstAsync();
+
+            Assert.AreNotEqual(string.Empty, siteLink);
         }
 
         [TestMethod]
@@ -22,10 +25,11 @@ namespace ModelsTest.Web_Test.BingSearch_Test
         {
             bool areAllLinksContainName = true;
 
-            var workingLinks = await new Bing().GetLinksAsync("lordfilm",
-                new BingSearchParser(), true);
+            var sitesHtml = await new Bing().GetSearchResultAsync("lordfilm", new SearchBingSettings());
 
-            foreach (var link in workingLinks)
+            var sitesLinks = await new SearchBingParser().GetWorkingLinksAsync(sitesHtml).ToListAsync();
+
+            foreach (var link in sitesLinks)
                 if (!link.Contains("lordfilm"))
                 {
                     areAllLinksContainName = false;

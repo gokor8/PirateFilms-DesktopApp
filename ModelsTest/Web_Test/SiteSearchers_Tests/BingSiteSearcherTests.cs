@@ -15,22 +15,26 @@ namespace ModelsTest.Web_Test.SiteSearchers_Tests
         {
             var searcher = new BingSiteSearcher();
 
-            var workingLinkList = await searcher.SearchWorkingSitesAsync().ToHashSetAsync();
+            await searcher.SearchWorkingSitesAsync(true);
 
             HashSet<string> dbWorkingLinkList = new HashSet<string>();
+
+            Task.WaitAll(searcher.TrackedTasks.ToArray());
 
             using (var context = new SitesContext())
             {
                 foreach (var dbLink in context.Links)
                 {
-                    if (workingLinkList.Contains(dbLink.WorkingLink))
+                    if (searcher.WorkingLinks.Contains(dbLink.WorkingLink))
                     {
                         dbWorkingLinkList.Add(dbLink.WorkingLink);
                     }
                 }
             }
 
-            Assert.AreEqual(workingLinkList.Count, workingLinkList.Count);
+            // Ожидание добавления в бд
+
+            Assert.AreEqual(searcher.WorkingLinks.Count(), dbWorkingLinkList.Count);
         }
 
         [TestMethod]
@@ -38,9 +42,9 @@ namespace ModelsTest.Web_Test.SiteSearchers_Tests
         {
             var searcher = new BingSiteSearcher();
 
-            string workingLink = await searcher.SearchWorkingSitesAsync().Take(1).FirstAsync();
+            await searcher.SearchWorkingSitesAsync();
 
-            Assert.AreNotEqual(string.Empty, workingLink);
+            Assert.AreNotEqual(string.Empty, searcher.WorkingLinks.FirstOrDefault());
         }
     }
 }
