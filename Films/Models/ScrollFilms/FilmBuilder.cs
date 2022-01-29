@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Films.Models.Web.HttpClients;
 using Films.MVVMLogic.Models;
-using Films.Web.HttpClients;
 
 namespace Films.Models.ScrollFilms
 {
