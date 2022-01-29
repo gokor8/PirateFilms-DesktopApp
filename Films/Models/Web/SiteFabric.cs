@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Films.Models.Web.BingSearch;
 using Films.Models.Web.BingSearch.SiteSearchers;
 
 namespace Films.Models.Web
@@ -9,19 +10,15 @@ namespace Films.Models.Web
         public async Task<ISearcher> CreateSiteSearcherAsync()
         {
             ISearcher searcher = new LocalSiteSearcher();
-            var workingLink = await searcher.SearchWorkingSitesAsync().Take(1).FirstAsync();
+            await searcher.SearchWorkingSitesAsync();
 
-            if (workingLink == string.Empty)
+            if (searcher.WorkingLinks.Count() <= 0)
+            {
                 searcher = new BingSiteSearcher();
+                await searcher.SearchWorkingSitesAsync();
+            }
 
             return searcher;
-        }
-
-        public async Task<string> CreateSiteLink()
-        {
-            ISearcher searcher = new BingSiteSearcher();
-            
-            return await searcher.SearchWorkingSitesAsync().Take(1).FirstAsync();
         }
     }
 }

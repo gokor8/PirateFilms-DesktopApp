@@ -1,8 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Films.Models.Web.HttpClients;
 
-namespace Films.Web.HttpClients
+namespace Films.Models.Web.HttpClients
 {
     public class PublicHttp : BaseHttp
     {

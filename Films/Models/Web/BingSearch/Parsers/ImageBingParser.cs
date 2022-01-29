@@ -4,29 +4,21 @@ using System.Net;
 using System.Net.Http;
 using AngleSharp;
 using AngleSharp.Dom;
-using Films.Web.HttpClients;
+using Films.Models.Web.HttpClients;
 using Newtonsoft.Json;
 
-namespace Films.Models.Web.BingSearch.BingObjects
+namespace Films.Models.Web.BingSearch.Parsers
 {
-    public sealed class BingImageParser : IBingParser
+    public sealed class ImageBingParser : IBingParser
     {
-        private const string IMAGE = "images/";
-
         private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
-
-        public BingImageParser(string searchParametrs)
-        {
-            SearchParametrs = searchParametrs;
-        }
-
-        public string SearchParametrs { get; }
-
 
         public async IAsyncEnumerable<string> GetWorkingLinksAsync(string htmlСontent)
         {
-            IDocument htmlDocument = await _publicHttp.Context.OpenAsync(html => html.Content(htmlСontent));
+            IDocument htmlDocument = await new ParserCore().Context.OpenAsync(html => html.Content(htmlСontent));
+
             string linkPicture = string.Empty;
+
 
             foreach (var filmImage in htmlDocument.QuerySelectorAll("div.imgpt a.iusc"))
             {
@@ -55,11 +47,6 @@ namespace Films.Models.Web.BingSearch.BingObjects
             }
 
             yield return linkPicture;
-        }
-
-        public string GetObjectType()
-        {
-            return IMAGE;
         }
 
         private class JsonImageBing

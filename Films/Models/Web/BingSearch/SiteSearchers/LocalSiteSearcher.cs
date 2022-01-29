@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Films.Models.DataBaseLogic.LinksDataBase;
-using Films.Web.HttpClients;
+using Films.Models.Web.HttpClients;
 
 namespace Films.Models.Web.BingSearch.SiteSearchers
 {
@@ -10,8 +11,13 @@ namespace Films.Models.Web.BingSearch.SiteSearchers
     {
         private readonly PublicHttp _publicHttp = new PublicHttp();
 
-        public async IAsyncEnumerable<string> SearchWorkingSitesAsync()
+        public IEnumerable<string> WorkingLinks { get; private set; }
+
+        public async Task SearchWorkingSitesAsync(bool takeAll = false)
         {
+            List<string> links = new List<string>();
+            WorkingLinks = links;
+
             using (var context = new SitesContext())
             {
                 foreach (var link in context.Links)
@@ -30,8 +36,9 @@ namespace Films.Models.Web.BingSearch.SiteSearchers
 
                     if (responseMessage.IsSuccessStatusCode)
                     {
-                        await context.SaveChangesAsync();
-                        yield return link.WorkingLink;
+                        links.Add(link.WorkingLink);
+                        if (!takeAll)
+                            break;
                     }
                 }
                 await context.SaveChangesAsync();

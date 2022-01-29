@@ -3,7 +3,6 @@ using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using AngleSharp;
 
 namespace Films.Models.Web.HttpClients
 {
@@ -12,7 +11,6 @@ namespace Films.Models.Web.HttpClients
         public CookieContainer CookieContainer;
         private HttpClientHandler _handler;
         public HttpClient Client;
-        public IBrowsingContext Context;
 
         protected BaseHttp()
         {
@@ -20,13 +18,9 @@ namespace Films.Models.Web.HttpClients
             _handler = new HttpClientHandler() { 
                 CookieContainer = CookieContainer,
                 AllowAutoRedirect = true,
-                UseCookies = true,
-                PreAuthenticate = true,
-                UseDefaultCredentials = true
             };
             Client = new HttpClient(_handler);
-            Context = BrowsingContext.New(Configuration.Default);
-            
+
             SetDefaultHeaders();
         }
 
@@ -42,19 +36,6 @@ namespace Films.Models.Web.HttpClients
         }
 
         public abstract Task<Stream> GetStreamClient(string link);
-
-        public string ClearWhiteSpaces(string value)
-        {
-            value = Regex.Replace(value, @"\s+", " ");
-            if (value.Length > 0)
-            {
-                if (value[0] == ' ')
-                    value = value.Substring(1);
-
-                value = value.Substring(0, 1).ToUpper() + value.Substring(1).ToLower();
-            }
-            return value.Trim();
-        }
 
         public void SetDefaultHeaders()
         {

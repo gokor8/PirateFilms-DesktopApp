@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Films.Models.Web
+namespace Films.Models.Web.BingSearch
 {
     public interface ISearcher
-    {
-        public IAsyncEnumerable<string> SearchWorkingSitesAsync();
+    { 
+        IEnumerable<string> WorkingLinks { get; }
+
+        Task SearchWorkingSitesAsync(bool takeAll = false);
     }
 }

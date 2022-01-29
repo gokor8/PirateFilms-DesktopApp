@@ -4,28 +4,18 @@ using System.Linq;
 using System.Net.Http;
 using AngleSharp;
 using AngleSharp.Dom;
+using Films.Models.Web.HttpClients;
 using Films.Models.Web.Parsers;
-using Films.Web.HttpClients;
 
-namespace Films.Models.Web.BingSearch.BingObjects
+namespace Films.Models.Web.BingSearch.Parsers
 {
-    public sealed class BingSearchParser : IBingParser
+    public sealed class SearchBingParser : IBingParser
     {
         private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
-
-        public BingSearchParser() {}
-
-        public BingSearchParser(string searchParametrs) 
-            => SearchParametrs= searchParametrs;
-
-
-        public string SearchParametrs { get; } = string.Empty;
-
-
         public async IAsyncEnumerable<string> GetWorkingLinksAsync(string htmlContent)
         {
-            IDocument angleDocument = await _publicHttp.Context.OpenAsync(html => html.Content(htmlContent));
+            IDocument angleDocument = await new ParserCore().Context.OpenAsync(html => html.Content(htmlContent));
 
             foreach (var linksElement in angleDocument.QuerySelector("#b_results")?.QuerySelectorAll("li.b_algo"))
             {
@@ -56,11 +46,6 @@ namespace Films.Models.Web.BingSearch.BingObjects
 
             yield return System.Configuration.ConfigurationManager.
                 ConnectionStrings["BackUpLink"].ConnectionString;
-        }
-
-        public string GetObjectType()
-        {
-            return string.Empty;
         }
     }
 }

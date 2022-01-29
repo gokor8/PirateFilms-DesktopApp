@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
-using Films.Web.HttpClients;
+using Films.Models.Web.HttpClients;
 
 namespace Films.Models.Web.BingSearch
 {
@@ -12,16 +11,16 @@ namespace Films.Models.Web.BingSearch
     {
         private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
-        private IBingParser bingElement;
+        private IBingSettings bingSettings;
 
         public Bing()
         {
             _publicHttp.SetDefaultHeaders();
         }
 
-        public async Task<IEnumerable<string>> GetLinksAsync(string textRequest, IBingParser bingElement, bool areAllLinks = false)
+        public async Task<string> GetSearchResultAsync(string textRequest, IBingSettings bingSettings)
         {
-            this.bingElement = bingElement;
+            this.bingSettings = bingSettings;
 
             string contentResponse = null;
             int numberIteration = 0;
@@ -33,30 +32,31 @@ namespace Films.Models.Web.BingSearch
 
                 await InitializeBingAsync();
 
-                contentResponse = await GetBingResponse(textRequest);
+                contentResponse = await GetBingResponseAsync(textRequest);
             }
 
-            var asyncLinkCollection = areAllLinks
+            /*var asyncLinkCollection = areAllLinks
                 ? bingElement.GetWorkingLinksAsync(contentResponse)
-                : bingElement.GetWorkingLinksAsync(contentResponse).Take(1);
+                : bingElement.GetWorkingLinksAsync(contentResponse).Take(1);*/
 
-            return await asyncLinkCollection.ToListAsync();
+            return contentResponse;
         }
 
-        private async Task<string> GetBingResponse(string textRequest)
+        private async Task<string> GetBingResponseAsync(string textRequest)
         {
             textRequest = $"https://www.bing.com/" +
-                          $"{bingElement.GetObjectType()}" +
+                          $"{bingSettings.SearchType}" +
                           $"search?q={HttpUtility.UrlEncode(textRequest.Trim().Replace(" ", "+"))}" +
                           "&rdr=1" +
-                          $"{bingElement.SearchParametrs}";
+                          $"{bingSettings.SearchParametrs}";
             var response = await _publicHttp.Client?.GetAsync(textRequest)!;
 
             string html = await response.Content.ReadAsStringAsync();
 
             int htmlByteCount = System.Text.Encoding.Unicode.GetByteCount(html);
-            //74438 true with Accept-Encoding || Without Accept-Encoding 318910 true
-            return await response.Content.ReadAsStringAsync();
+            //74438 true with Accept-Encoding || Without Accept-Encoding 318910 || 315324 true
+            //697434 true html images and 718226
+            return htmlByteCount > 300000 ? await response.Content.ReadAsStringAsync() : null;
         }
 
         public async Task InitializeBingAsync()
