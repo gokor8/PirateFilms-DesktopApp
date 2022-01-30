@@ -125,7 +125,7 @@
     <Compile Include="Models\Web\Parsers\LordfilmParser.cs" />
     <Compile Include="Models\Web\BingSearch\SiteSearchers\BingSiteSearcher.cs" />
     <Compile Include="Models\Web\BingSearch\SiteSearchers\LocalSiteSearcher.cs" />
-    <Compile Include="Models\Web\SiteFabric.cs" />
+    <Compile Include="Models\Web\BingSearch\SiteSearchersFactory.cs" />
     <Compile Include="ViewModels\MainViewModel\Validations\LoginValidator.cs" />
     <Compile Include="ViewModels\MainViewModel\Validations\PasswordValidator.cs" />
     <Compile Include="Views\App.xaml.cs">
@@ -181,8 +181,6 @@
     <Compile Include="Models\Web\HttpClients\PublicHttp.cs" />
     <Compile Include="Models\ScrollFilms\FilmBuilder.cs" />
     <Compile Include="Models\Web\HttpClients\SiteFilmsHttp.cs" />
-    <Compile Include="ViewModels\MainViewModel\Buttons\BGuest.cs" />
-    <Compile Include="ViewModels\MainViewModel\Buttons\BSignUP.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="ViewModels\INPC.cs" />

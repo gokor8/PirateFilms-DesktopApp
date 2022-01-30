@@ -27,8 +27,9 @@
         <Grid x:Name="MainGrid" 
               Grid.Column="0"
               Height="Auto" Background="#26474646">
+
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"
-                    Height="90" Width="320" Visibility="Hidden"/>
+                       Height="90" Width="320" Visibility="Hidden"/>
 
             <Border Height="260" Width="290" HorizontalAlignment="Center" VerticalAlignment="Center"
                     BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" Background="#66474646">
