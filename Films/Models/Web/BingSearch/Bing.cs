@@ -13,11 +13,6 @@ namespace Films.Models.Web.BingSearch
 
         private IBingSettings bingSettings;
 
-        public Bing()
-        {
-            _publicHttp.SetDefaultHeaders();
-        }
-
         public async Task<string> GetSearchResultAsync(string textRequest, IBingSettings bingSettings)
         {
             this.bingSettings = bingSettings;
@@ -34,10 +29,6 @@ namespace Films.Models.Web.BingSearch
 
                 contentResponse = await GetBingResponseAsync(textRequest);
             }
-
-            /*var asyncLinkCollection = areAllLinks
-                ? bingElement.GetWorkingLinksAsync(contentResponse)
-                : bingElement.GetWorkingLinksAsync(contentResponse).Take(1);*/
 
             return contentResponse;
         }
