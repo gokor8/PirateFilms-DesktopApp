@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Films.Models.ScrollFilms;
 using Films.MVVMLogic.Models;
@@ -18,7 +17,7 @@ namespace ModelsTest.MVVMLogic_Test.Models_Test
             FilmParser filmBuilder = new FilmParser();
 
             filmBuilder.OnFilm += film => _films.Add(film);
-            await filmBuilder.CreatingFilms();
+            await filmBuilder.CreateFilmsAsync();
 
             System.Diagnostics.Stopwatch myStopwatch = new System.Diagnostics.Stopwatch();
             myStopwatch.Start(); 

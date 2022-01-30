@@ -10,7 +10,7 @@ namespace ModelsTest.Web_Test.HttpClients_Test
         [TestMethod]
         public async Task Check_site_performance()
         {
-            SiteFilmsHttp siteFilmsHttp = SiteFilmsHttp.GetInstance();
+            SiteFilmsHttp siteFilmsHttp = await SiteFilmsHttp.GetInstanceAsync();
 
             string html = await siteFilmsHttp.Client.GetStringAsync(siteFilmsHttp.Client.BaseAddress);
 
