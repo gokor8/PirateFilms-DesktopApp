@@ -1,5 +1,4 @@
-﻿using Films.Classes.MVVM;
-using Films.MVVMLogic.Models;
+﻿using Films.Models.ScrollFilms;
 
 namespace Films.ViewModels.MainViewModel
 {
