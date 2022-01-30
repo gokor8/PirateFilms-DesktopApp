@@ -1,35 +1,54 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Films.Models.Web.BingSearch;
 
 namespace Films.Models.Web.HttpClients
 {
-    public class SiteFilmsHttp : BaseHttp
+    public sealed class SiteFilmsHttp : BaseHttp
     {
-        private static readonly SiteFilmsHttp _instance = new SiteFilmsHttp();
+        private static SiteFilmsHttp _instance;
+        private static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1);
 
-        public SiteFilmsHttp()
+        private string _workingBaseAddress = string.Empty;
+
+        private SiteFilmsHttp()
         {
-            SetSiteHeaders().Wait();
-        }
-        private async Task SetSiteHeaders()
-        {
-            var searcher = await new SiteFabric().CreateSiteSearcherAsync();
-            //Client.DefaultRequestHeaders.Add("Referer", "https://yandex.ru/");
-            //Client.DefaultRequestHeaders.Add("User-Agent", "Fiddler Everywhere");
-            Client.BaseAddress = new Uri(searcher.WorkingLinks.First());
-            Client.DefaultRequestHeaders.Host = Client.BaseAddress.Host;
+
         }
 
-        public override Task<Stream> GetStreamClient(string link)
+        public async Task GetBaseAddressAsync()
         {
-            return Client.GetStreamAsync(link);
+            var searcher = await new SiteSearcherFactory().CreateSiteSearcherAsync();
+
+            _workingBaseAddress = searcher.WorkingLinks.First();
         }
 
-        public static SiteFilmsHttp GetInstance()
+        public static async Task<SiteFilmsHttp> GetInstanceAsync()
         {
+            await semaphore.WaitAsync().ConfigureAwait(false);
+            try
+            {
+                if (_instance == null)
+                {
+                    _instance = new SiteFilmsHttp();
+                    await _instance.GetBaseAddressAsync().ConfigureAwait(false);
+                    _instance.SetOptionalHeaders();
+                }
+            }
+            finally
+            {
+                semaphore.Release();
+            }
+
             return _instance;
+        }
+
+        public override void SetOptionalHeaders()
+        {
+            Client.BaseAddress = new Uri(_workingBaseAddress);
+            Client.DefaultRequestHeaders.Host = Client.BaseAddress.Host;
         }
     }
 }

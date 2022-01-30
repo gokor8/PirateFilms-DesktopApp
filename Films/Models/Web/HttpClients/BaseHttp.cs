@@ -1,7 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Films.Models.Web.HttpClients
@@ -15,18 +15,21 @@ namespace Films.Models.Web.HttpClients
         protected BaseHttp()
         {
             CookieContainer = new CookieContainer();
-            _handler = new HttpClientHandler() { 
+            _handler = new HttpClientHandler()
+            {
                 CookieContainer = CookieContainer,
                 AllowAutoRedirect = true,
             };
-            Client = new HttpClient(_handler);
 
-            SetDefaultHeaders();
+            Client = new HttpClient(_handler);
+            Client.Timeout = TimeSpan.FromMinutes(1);
+
+            SetBaseHeaders();
         }
 
         public async Task<string> Download(string link, string path)
         {
-            var fileStream = await GetStreamClient(link);
+            var fileStream = await Client.GetStreamAsync(link);
             using (var targetFile = File.Create(path))
             {
                 await fileStream.CopyToAsync(targetFile);
@@ -35,9 +38,9 @@ namespace Films.Models.Web.HttpClients
             return path;
         }
 
-        public abstract Task<Stream> GetStreamClient(string link);
+        public abstract void SetOptionalHeaders();
 
-        public void SetDefaultHeaders()
+        private void SetBaseHeaders()
         {
             Client.DefaultRequestHeaders.Add("User-Agent", "AmPirate");
             Client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8");
@@ -47,7 +50,8 @@ namespace Films.Models.Web.HttpClients
         public void ClearAllHeaders()
         {
             Client.DefaultRequestHeaders.Clear();
-            SetDefaultHeaders();
+            SetBaseHeaders();
+            SetOptionalHeaders();
         }
     }
 }
