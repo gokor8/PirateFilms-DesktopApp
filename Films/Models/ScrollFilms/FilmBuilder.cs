@@ -8,7 +8,7 @@ namespace Films.Models.ScrollFilms
 {
     public class FilmBuilder
     {
-        public Film Film { get; private set; } = new Film();
+        public Film Film { get; } = new Film();
 
         private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
@@ -33,6 +33,7 @@ namespace Films.Models.ScrollFilms
             {
                 downloadedPicturePath = await _publicHttp.Download(link, appData + "/" + numberFilm + ".jpg");
             }).Wait();
+
             Film.Picture = downloadedPicturePath;
 
             return this;

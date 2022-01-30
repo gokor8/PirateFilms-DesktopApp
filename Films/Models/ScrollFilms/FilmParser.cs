@@ -11,16 +11,17 @@ namespace Films.Models.ScrollFilms
 {
     public class FilmParser
     {
-        public delegate void CorrectFilmBuilder(Film film);
+        private SiteFilmsHttp _siteHttp;
+
         public event CorrectFilmBuilder OnFilm;
-        private SiteFilmsHttp siteHttp;
+        public delegate void CorrectFilmBuilder(Film film);
 
-        public async Task CreatingFilms()
+        public async Task CreateFilmsAsync()
         {
-            siteHttp = SiteFilmsHttp.GetInstance();
+            _siteHttp = await SiteFilmsHttp.GetInstanceAsync();
             Bing bing = new Bing();
-
-            string html = await siteHttp.Client.GetStringAsync(siteHttp.Client.BaseAddress);
+            
+            string html = await _siteHttp.Client.GetStringAsync(_siteHttp.Client.BaseAddress);
             var filmNamesCollection = await new LordfilmParser().GetPopularFilmsName(html, 5);
 
             for (int countFilms = 0; countFilms < filmNamesCollection.Count(); countFilms++) 
@@ -37,12 +38,12 @@ namespace Films.Models.ScrollFilms
 
                     IBingFactory factory = new ImageBingFactory();
 
-                    string bingSearchHtml = await bing.GetSearchResultAsync(nameFilm,
+                    string bingSearchHtml = await bing.GetSearchResultAsync(nameFilm + "фильм",
                         factory.CreateBingSettings("&qft=+filterui%3aimagesize-custom_1000_1000&first=1&tsc=ImageBasicHover"));
 
                     string linkImage = await factory.CreateBingParser().GetWorkingLinksAsync(bingSearchHtml).FirstAsync();
 
-                    var filmBuilder = new FilmBuilder().SetName(nameFilm).DownloadPicture(linkImage, copyCount)
+                    var filmBuilder = new FilmBuilder().SetName(nameFilm)?.DownloadPicture(linkImage, copyCount)
                         .ValidateLink();
 
                     OnFilm?.Invoke(filmBuilder.Film);
