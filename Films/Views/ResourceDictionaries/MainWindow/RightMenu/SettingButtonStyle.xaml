@@ -8,8 +8,9 @@
     </ResourceDictionary.MergedDictionaries>
 
     <converter:WidthConverter x:Key="WidthConverter"></converter:WidthConverter>
-
+    
     <Style x:Key="RightPathButton" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonShadowLite}">
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -34,8 +35,39 @@
                         </Border.Style>
                     </Border>
                     <ControlTemplate.Triggers>
+
+                        <DataTrigger Binding="{Binding ElementName=MainBorder, Path=ActualWidth, Converter={StaticResource WidthConverter}}"
+                                     Value="true">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <DoubleAnimation 
+                                            Storyboard.TargetProperty="Background.Opacity"
+                                            Duration="0:0:1" From="1" To="0">
+                                        </DoubleAnimation>
+                                        <DoubleAnimation 
+                                            Storyboard.TargetProperty="Height"
+                                            Duration="0:0:1" To="40">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+
                         <DataTrigger Binding="{Binding ElementName=MainBorder, Path=ActualWidth, Converter={StaticResource WidthConverter}}"
                                      Value="false">
+
+                            <DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard >
+                                    <DoubleAnimation 
+                                        Storyboard.TargetProperty="Background.Opacity"
+                                        Duration="0:0:1" From="0" To="1">
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+
                             <Setter TargetName ="MainBorder" Property="Background" 
                                     Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}"/>
                             <Setter TargetName ="MainBorder" Property="ToolTip" 
