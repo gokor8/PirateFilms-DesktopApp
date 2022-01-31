@@ -20,7 +20,8 @@ namespace Films.Models.ScrollFilms
                 return null;
 
             return this;
-        }
+        } 
+
         public FilmBuilder DownloadPicture(string link, int numberFilm)
         {
             // Создаю Папку приложения в %AppData%

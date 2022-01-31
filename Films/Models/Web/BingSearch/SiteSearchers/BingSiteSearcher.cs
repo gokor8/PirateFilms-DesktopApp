@@ -10,7 +10,7 @@ namespace Films.Models.Web.BingSearch.SiteSearchers
 {
     public class BingSiteSearcher : ISearcher
     {
-        private const string SiteName = "lordfilm";
+        private const string SeachSiteName = "lordfilm";
         public IEnumerable<string> WorkingLinks { get; private set; }
         public HashSet<Task> TrackedTasks { get; } = new HashSet<Task>();
 
@@ -19,7 +19,7 @@ namespace Films.Models.Web.BingSearch.SiteSearchers
             IBingFactory bingFactory = new SearchBingFactory();
 
             var bingRequestHtml = await new Bing()
-                .GetSearchResultAsync(SiteName, bingFactory.CreateBingSettings());
+                .GetSearchResultAsync(SeachSiteName, bingFactory.CreateBingSettings());
 
             var bingParser = bingFactory.CreateBingParser();
 
