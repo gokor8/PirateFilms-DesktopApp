@@ -25,7 +25,29 @@
 
     <Style x:Key="AutorizationTextBox" TargetType="{x:Type TextBox}">
         <Setter Property="Height" Value="30"></Setter>
-        
+
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderThickness="2" BorderBrush="Blue" x:Name="ValidationBorder">
+                        <AdornedElementPlaceholder/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard TargetName="ValidationBorder" TargetProperty="Background.(BorderBrush)">
+                                        <ColorAnimation AutoReverse="True"
+                                                        To="Red" Duration="0:0:1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
