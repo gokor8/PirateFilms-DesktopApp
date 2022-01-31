@@ -52,12 +52,29 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <DoubleAnimation 
+                                            Storyboard.TargetProperty="Background.Opacity"
+                                            Duration="0:0:1" From="0" To="1">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation 
+                                            Storyboard.TargetProperty="Height"
+                                            Duration="0:0:1" To="50"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding ElementName=MainBorder, Path=ActualWidth, Converter={StaticResource WidthConverter}}"
                                      Value="false">
 
-                            <DataTrigger.EnterActions>
+                            <!--<DataTrigger.EnterActions>
                             <BeginStoryboard>
                                 <Storyboard >
                                     <DoubleAnimation 
@@ -66,7 +83,7 @@
                                     </DoubleAnimation>
                                 </Storyboard>
                             </BeginStoryboard>
-                            </DataTrigger.EnterActions>
+                            </DataTrigger.EnterActions>-->
 
                             <Setter TargetName ="MainBorder" Property="Background" 
                                     Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}"/>
