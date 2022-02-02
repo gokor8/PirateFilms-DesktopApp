@@ -37,24 +37,6 @@
                     <ControlTemplate.Triggers>
 
                         <DataTrigger Binding="{Binding ElementName=MainBorder, Path=ActualWidth, Converter={StaticResource WidthConverter}}"
-                                     Value="true">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard >
-                                        <DoubleAnimation 
-                                            Storyboard.TargetProperty="Background.Opacity"
-                                            Duration="0:0:1" From="1" To="0">
-                                        </DoubleAnimation>
-                                        <DoubleAnimation 
-                                            Storyboard.TargetProperty="Height"
-                                            Duration="0:0:1" To="40">
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
-
-                        <DataTrigger Binding="{Binding ElementName=MainBorder, Path=ActualWidth, Converter={StaticResource WidthConverter}}"
                                      Value="false">
 
                             <DataTrigger.EnterActions>
@@ -62,11 +44,29 @@
                                 <Storyboard >
                                     <DoubleAnimation 
                                         Storyboard.TargetProperty="Background.Opacity"
-                                        Duration="0:0:1" From="0" To="1">
+                                        Duration="0:0:1" From="0.5" To="1">
                                     </DoubleAnimation>
-                                </Storyboard>
+                                       <!-- <DoubleAnimation 
+                                            Storyboard.TargetProperty="Height"
+                                            Duration="0:0:1" To="50">
+                                        </DoubleAnimation>-->
+                                    </Storyboard>
                             </BeginStoryboard>
                             </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <DoubleAnimation 
+                                            Storyboard.TargetProperty="Background.(SolidColorBrush.Opacity)"
+                                            Duration="0:0:1" From="0" To="1">
+                                        </DoubleAnimation>
+                                        <!--<DoubleAnimation 
+                                            Storyboard.TargetProperty="Height"
+                                            Duration="0:0:1" To="40">
+                                        </DoubleAnimation>-->
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
 
                             <Setter TargetName ="MainBorder" Property="Background" 
                                     Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}"/>
