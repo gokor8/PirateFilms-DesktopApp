@@ -14,11 +14,23 @@
     </Window.DataContext>
 
 
-    <Grid Height="Auto" Width="Auto">
-        <Grid.Background>
-            <ImageBrush x:Name="GridImage" Stretch="Fill" ImageSource="{Binding FilmViewModel.Picture}"></ImageBrush>
-        </Grid.Background>
+    <Grid Height="Auto" Width="Auto" Background="#272537">
+        <Grid>
+            <Grid.Background>
+                <ImageBrush x:Name="GridImage" Stretch="Fill" ImageSource="{Binding FilmViewModel.Picture, NotifyOnSourceUpdated=True}"/>
+            </Grid.Background>
 
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                                     From="0.5" To="1" Duration="0:0:1.5"/>
+                        </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="16*" MinWidth="100" />
             <ColumnDefinition Width="*" MinWidth="60"/>
@@ -32,7 +44,7 @@
                        Height="90" Width="320" Visibility="Hidden"/>
 
             <Border Height="260" Width="290" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" Background="#66474646">
+                    BorderThickness="1,1,1,1" Background="#66474646">
                 <Grid DataContext="{Binding AutorizationVM}">
 
                     <Button Command="{Binding SignUp}" x:Name="Autorization"
@@ -59,9 +71,20 @@
             </Border>
             <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"
                     Height="120" Width="120" BorderThickness="0,1,1,0" CornerRadius="0,100,0,0" Background="#B2191919">
-                <TextBlock Text="{Binding FilmViewModel.Name}" TextWrapping="Wrap"
+                <TextBlock Text="{Binding FilmViewModel.Name, NotifyOnTargetUpdated=True}" TextWrapping="Wrap"
                            VerticalAlignment="Bottom" Height="60" Width="80" Margin="0,0,17,15" Background="#00000000" 
-                           FlowDirection="LeftToRight" FontSize="15" Foreground="#FFF9F9F9" HorizontalAlignment="Center"/>
+                           FlowDirection="LeftToRight" FontSize="15" Foreground="#FFF9F9F9" HorizontalAlignment="Center">
+                    <TextBlock.Triggers>
+                        <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                                     From="0" To="1" Duration="0:0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </TextBlock.Triggers>
+                </TextBlock>
             </Border>
         </Grid>
 
@@ -83,7 +106,7 @@
                 
             </Button>
         </Grid>
-
+        </Grid>
     </Grid>
 
 </Window>

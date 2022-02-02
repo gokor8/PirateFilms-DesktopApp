@@ -29,14 +29,30 @@
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
-                    <Border BorderThickness="2" BorderBrush="Blue" x:Name="ValidationBorder">
+                    <Border BorderThickness="2" x:Name="ValidationBorder">
                         <AdornedElementPlaceholder/>
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard TargetProperty="Background.(SolidColorBrush.Color)">
+                                                    <ColorAnimation AutoReverse="True"
+                                                        To="Red" Duration="0:0:1"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Validation.HasError" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
-                                    <Storyboard TargetName="ValidationBorder" TargetProperty="Background.(BorderBrush)">
+                                    <Storyboard TargetName="ValidationBorder" TargetProperty="Background.(SolidColorBrush.Color)">
                                         <ColorAnimation AutoReverse="True"
                                                         To="Red" Duration="0:0:1"/>
                                     </Storyboard>
