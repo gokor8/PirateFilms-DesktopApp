@@ -9,6 +9,25 @@
 
     <converter:WidthConverter x:Key="WidthConverter"></converter:WidthConverter>
     
+    <!--ButtonBaseAnimations-->
+    <Storyboard x:Key="ClosingAnimation" Name="ab">
+        <DoubleAnimation 
+            Storyboard.TargetProperty="Background.Opacity"
+            Duration="0:0:1" From="0.3" To="1"/>
+        <DoubleAnimation 
+            Storyboard.TargetProperty="Height"
+            Duration="0:0:1" To="50"/>
+    </Storyboard>
+    
+    <Storyboard x:Key="OpeningAnimation">
+        <DoubleAnimation 
+            Storyboard.TargetProperty="Opacity"
+            Duration="0:0:1" From="0.3" To="1"/>
+        <DoubleAnimation 
+            Storyboard.TargetProperty="Height"
+            Duration="0:0:1" To="40"/>
+    </Storyboard>
+    
     <Style x:Key="RightPathButton" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonShadowLite}">
 
         <Setter Property="Template">
@@ -40,32 +59,11 @@
                                      Value="false">
 
                             <DataTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard >
-                                        <DoubleAnimation 
-                                        Storyboard.TargetProperty="Background.Opacity"
-                                        Duration="0:0:1" From="0.5" To="1">
-                                        </DoubleAnimation>
-                                        <!-- <DoubleAnimation 
-                                            Storyboard.TargetProperty="Height"
-                                            Duration="0:0:1" To="50">
-                                        </DoubleAnimation>-->
-                                    </Storyboard>
-                                </BeginStoryboard>
+                                <BeginStoryboard Storyboard="{StaticResource ClosingAnimation}"/>
                             </DataTrigger.EnterActions>
+                            
                             <DataTrigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard >
-                                        <DoubleAnimation 
-                                            Storyboard.TargetProperty="Background.(SolidColorBrush.Opacity)"
-                                            Duration="0:0:1" From="0" To="1">
-                                        </DoubleAnimation>
-                                        <!--<DoubleAnimation 
-                                            Storyboard.TargetProperty="Height"
-                                            Duration="0:0:1" To="40">
-                                        </DoubleAnimation>-->
-                                    </Storyboard>
-                                </BeginStoryboard>
+                                <BeginStoryboard Storyboard="{StaticResource OpeningAnimation}"/>
                             </DataTrigger.ExitActions>
 
                             <Setter TargetName ="MainBorder" Property="Background" 
