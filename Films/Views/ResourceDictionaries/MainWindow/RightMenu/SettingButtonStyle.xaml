@@ -37,9 +37,47 @@
                     <ControlTemplate.Triggers>
 
                         <DataTrigger Binding="{Binding ElementName=MainBorder, Path=ActualWidth, Converter={StaticResource WidthConverter}}"
+<<<<<<< HEAD
+=======
+                                     Value="true">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <DoubleAnimation 
+                                            Storyboard.TargetProperty="Background.Opacity"
+                                            Duration="0:0:1" From="1" To="0">
+                                        </DoubleAnimation>
+                                        <DoubleAnimation 
+                                            Storyboard.TargetProperty="Height"
+                                            Duration="0:0:1" To="40">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard >
+                                        <DoubleAnimation 
+                                            Storyboard.TargetProperty="Background.Opacity"
+                                            Duration="0:0:1" From="0" To="1">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation 
+                                            Storyboard.TargetProperty="Height"
+                                            Duration="0:0:1" To="50"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding ElementName=MainBorder, Path=ActualWidth, Converter={StaticResource WidthConverter}}"
+>>>>>>> 61841266591ef61ad2f00f3ca9343290fa57c134
                                      Value="false">
 
-                            <DataTrigger.EnterActions>
+                            <!--<DataTrigger.EnterActions>
                             <BeginStoryboard>
                                 <Storyboard >
                                     <DoubleAnimation 
@@ -52,6 +90,7 @@
                                         </DoubleAnimation>-->
                                     </Storyboard>
                             </BeginStoryboard>
+<<<<<<< HEAD
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
                                 <BeginStoryboard>
@@ -67,6 +106,9 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>
+=======
+                            </DataTrigger.EnterActions>-->
+>>>>>>> 61841266591ef61ad2f00f3ca9343290fa57c134
 
                             <Setter TargetName ="MainBorder" Property="Background" 
                                     Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}"/>
