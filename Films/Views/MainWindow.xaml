@@ -17,12 +17,20 @@
     <Grid Height="Auto" Width="Auto" Background="#272537">
         <Grid.Triggers>
             <EventTrigger RoutedEvent="Binding.TargetUpdated">
-                <BeginStoryboard>
-                    <Storyboard TargetName="BackgroundImage">
-                        <DoubleAnimation Storyboard.TargetProperty="Opacity" 
-                                         From="0" To="1" Duration="0:0:1.5"/>
-                    </Storyboard>
-                </BeginStoryboard>
+                    <BeginStoryboard>
+                        <Storyboard TargetName="BackgroundImage">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                             From="0" To="1" Duration="0:0:1.5"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                <EventTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard TargetName="BackgroundImage">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                             From="1" To="0" Duration="0:0:1.5"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.ExitActions>
             </EventTrigger>  
         </Grid.Triggers>
         
