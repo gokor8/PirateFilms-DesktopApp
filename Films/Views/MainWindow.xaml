@@ -23,14 +23,6 @@
                                              From="0" To="1" Duration="0:0:1.5"/>
                         </Storyboard>
                     </BeginStoryboard>
-                <EventTrigger.ExitActions>
-                    <BeginStoryboard>
-                        <Storyboard TargetName="BackgroundImage">
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
-                                             From="1" To="0" Duration="0:0:1.5"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger.ExitActions>
             </EventTrigger>  
         </Grid.Triggers>
         
@@ -51,7 +43,7 @@
                        Height="90" Width="320" Visibility="Hidden"/>
 
             <Border Height="260" Width="290" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    BorderThickness="1,1,1,1" Background="#66474646">
+                    BorderThickness="1,1,1,1" Background="#66474646" CornerRadius="5">
                 <Grid DataContext="{Binding AutorizationVM}">
 
                     <Button Command="{Binding SignUp}" x:Name="Autorization"
@@ -77,14 +69,31 @@
                 </Grid>
             </Border>
             <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                    Height="120" Width="120" BorderThickness="0,1,1,0" CornerRadius="0,100,0,0" Background="#B2191919">
-                <TextBlock Text="{Binding FilmViewModel.Name, NotifyOnTargetUpdated=True}" TextWrapping="Wrap"
-                           VerticalAlignment="Bottom" Height="60" Width="80" Margin="0,0,17,15" Background="#00000000" 
-                           FlowDirection="LeftToRight" FontSize="15" Foreground="#FFF9F9F9" HorizontalAlignment="Center">
+                    Height="80"  BorderThickness="0,1,5,0" CornerRadius="0,100,0,0" Background="#B2191919">
+                <TextBlock Text="{Binding FilmViewModel.Name, NotifyOnTargetUpdated=True}" 
+                           TextWrapping="Wrap" Name="FilmName" SizeChanged="FilmName_OnSizeChanged"
+                           VerticalAlignment="Center" FontSize="15" MaxHeight="18"
+                           Margin="10,5,30,5" Width="Auto"
+                           Foreground="#FFF9F9F9" Background="#00000000" 
+                           FlowDirection="LeftToRight" HorizontalAlignment="Stretch">
                     <TextBlock.Triggers>
-                        <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                        <EventTrigger RoutedEvent="TextBlock.Loaded">
                             <BeginStoryboard>
                                 <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="(TextBlock.Width)"
+                                        To="0.0" Duration="0:0:1" 
+                                        AutoReverse="True" RepeatBehavior="Forever" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                            <BeginStoryboard>
+                                <Storyboard TargetName="FilmName">
+                                    <!--<DoubleAnimation Storyboard.TargetProperty="(TextBlock.Width)" To="0.0"
+                                                     AutoReverse="True" RepeatBehavior="Forever" Duration="0:0:1"/>-->
+                                            <!--<DoubleAnimation Storyboard.TargetProperty="Width" 
+                                                             From="0" To="{Binding ElementName=FilmName, Path=ActualWidth}" Duration="0:0:0:1"/>-->
                                     <DoubleAnimation Storyboard.TargetProperty="Opacity" 
                                                      From="0" To="1" Duration="0:0:0:1"/>
                                 </Storyboard>
@@ -92,6 +101,16 @@
                         </EventTrigger>
                     </TextBlock.Triggers>
                 </TextBlock>
+                <!--<Border.Triggers>
+                    <EventTrigger RoutedEvent="TextBlock.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" 
+                                                From="0" To="{Binding ElementName=FilmName, Path=ActualWidth}" Duration="0:0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Border.Triggers>-->
             </Border>
         </Grid>
 
