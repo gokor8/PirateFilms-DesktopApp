@@ -9,9 +9,11 @@ namespace Films.ViewModels.MainViewModel
     internal class AutorizationVm : INPC
     {
         private CancellationTokenSource _singUpToken = new CancellationTokenSource();
-
-        public AutorizationVm()
+        private IWindowChanger _windowChanger;
+        public AutorizationVm(IWindowChanger windowChanger)
         {
+            _windowChanger = windowChanger;
+            
             LoginValidator = new LoginValidator();
             PasswordValidator = new PasswordValidator();
         }
@@ -31,6 +33,7 @@ namespace Films.ViewModels.MainViewModel
 
             if (loginnerTask.IsVerify)
             {
+                _windowChanger.CloseAndOpen();
                 //В основное окно идем епте
                 System.Windows.MessageBox.Show("Logged");
             }
@@ -46,8 +49,7 @@ namespace Films.ViewModels.MainViewModel
         public ICommand SignByGhost => new DelegateCommand((obj) =>
         {
             _singUpToken.Cancel();
-
-            System.Windows.MessageBox.Show("CALAM2");
+            _windowChanger.CloseAndOpen();
         });
     }
 }
