@@ -7,7 +7,7 @@
         <ResourceDictionary Source="../BasedOnStyles.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
-    <converter:WidthConverter x:Key="WidthConverter"></converter:WidthConverter>
+    <converter:WidthConverter x:Key="WidthConverter"/>
     
     <!--ButtonBaseAnimations-->
     <Storyboard x:Key="ClosingAnimation" Name="ab">

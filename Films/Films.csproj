@@ -112,8 +112,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="FilmWindowChanger.cs" />
+    <Compile Include="IWindowChanger.cs" />
     <Compile Include="Models\DataBaseLogic\LinksDataBase\Link.cs" />
     <Compile Include="Models\DataBaseLogic\LinksDataBase\SitesContext.cs" />
+    <Compile Include="Models\DataModels\Film.cs" />
     <Compile Include="Models\Web\BingSearch\Factories\ImageBingFactory.cs" />
     <Compile Include="Models\Web\BingSearch\Factories\SearchBingFactory.cs" />
     <Compile Include="Models\Web\BingSearch\SettingsSearch\ImageBingSettings.cs" />
@@ -122,12 +125,16 @@
     <Compile Include="Models\Web\BingSearch\IBingSettings.cs" />
     <Compile Include="Models\Web\BingSearch\ISearcher.cs" />
     <Compile Include="Models\Web\ParserCore.cs" />
-    <Compile Include="Models\Web\Parsers\LordfilmParser.cs" />
+    <Compile Include="Models\Web\Parsers\FilmsPreviewLordfilmParser.cs" />
+    <Compile Include="Models\Web\Parsers\NamesPreviewLordfilmParser.cs" />
     <Compile Include="Models\Web\BingSearch\SiteSearchers\BingSiteSearcher.cs" />
     <Compile Include="Models\Web\BingSearch\SiteSearchers\LocalSiteSearcher.cs" />
     <Compile Include="Models\Web\BingSearch\SiteSearchersFactory.cs" />
-    <Compile Include="ViewModels\MainViewModel\Validations\LoginValidator.cs" />
-    <Compile Include="ViewModels\MainViewModel\Validations\PasswordValidator.cs" />
+    <Compile Include="Models\Web\Parsers\LordfilmParser.cs" />
+    <Compile Include="ViewModels\FilmsViewModels\FilmsViewModel.cs" />
+    <Compile Include="ViewModels\FilmsViewModels\FilmDataViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModels\Validations\LoginValidator.cs" />
+    <Compile Include="ViewModels\MainViewModels\Validations\PasswordValidator.cs" />
     <Compile Include="Views\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -136,6 +143,7 @@
     <Compile Include="Views\Components\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Converters\PathConverter.cs" />
     <Compile Include="Views\Converters\WidthConverter.cs" />
     <Compile Include="Views\FilmsWindow.xaml.cs">
       <DependentUpon>FilmsWindow.xaml</DependentUpon>
@@ -144,6 +152,8 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ResourceDictionaries\FilmsWindow\BasedOnStyles.xaml" />
+    <Page Include="Views\ResourceDictionaries\FilmsWindow\PopularFilmsSection.xaml" />
     <Page Include="Views\ResourceDictionaries\MainWindow\AutorizationGrid\AutorizationButtonStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,8 +180,8 @@
     <Compile Include="Models\DataBaseLogic\UserDataBse\UserContext.cs" />
     <Compile Include="Models\Loginners\LoginnerBuilder.cs" />
     <Compile Include="Models\Loginners\Loginner.cs" />
-    <Compile Include="ViewModels\MainViewModel\AutorizationVm.cs" />
-    <Compile Include="ViewModels\MainViewModel\FilmViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModels\AutorizationVm.cs" />
+    <Compile Include="ViewModels\MainViewModels\FilmViewModel.cs" />
     <Compile Include="Models\Web\BingSearch\Bing.cs" />
     <Compile Include="Models\Web\BingSearch\Parsers\ImageBingParser.cs" />
     <Compile Include="Models\ScrollFilms\FilmParser.cs" />
@@ -182,9 +192,8 @@
     <Compile Include="Models\ScrollFilms\FilmBuilder.cs" />
     <Compile Include="Models\Web\HttpClients\SiteFilmsHttp.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
-    <Compile Include="Models\Film.cs" />
     <Compile Include="ViewModels\INPC.cs" />
-    <Compile Include="ViewModels\MainViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModels\MainViewModel.cs" />
     <Compile Include="Models\ScrollFilms\FilmTimer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -212,7 +221,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Views\Pictures\Settings.png" />
     <Resource Include="Views\Pictures\Eye.png" />

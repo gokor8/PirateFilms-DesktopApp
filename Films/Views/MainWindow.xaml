@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mainViewModel="clr-namespace:Films.ViewModels.MainViewModel"
         xmlns:components="clr-namespace:Films.Views.Components"
+        xmlns:mainViewModels="clr-namespace:Films.ViewModels.MainViewModels"
         ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
     <Window.DataContext>
-        <mainViewModel:MainViewModel/>
+        <mainViewModels:MainViewModel/>
     </Window.DataContext>
 
 
@@ -38,21 +39,21 @@
         <Grid x:Name="MainGrid" 
               Grid.Column="0"
               Height="Auto" Background="#26474646">
-
+            
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"
                        Height="90" Width="320" Visibility="Hidden"/>
 
-            <Border Height="260" Width="290" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    BorderThickness="1,1,1,1" Background="#66474646" CornerRadius="5">
+            <Border Height="220" Width="260" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    BorderThickness="1,1,1,1" Background="#66474646" CornerRadius="3">
                 <Grid DataContext="{Binding AutorizationVM}">
 
                     <Button Command="{Binding SignUp}" x:Name="Autorization"
-                            Content ="ВОЙТИ" Width="110" Height="28"
+                            Content ="ВОЙТИ" Width="110" Height="25"
                             VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,55,0,0"
                             Style="{StaticResource AutorizationButton}"/>
 
                     <Button Command="{Binding SignByGhost}" x:Name="Guest"
-                            Content="ГОСТЬ" FontSize="10.5" Height ="24" Width="110"
+                            Content="ГОСТЬ" FontSize="10.5" Height ="25" Width="110"
                             VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,115,0,0"
                             Style ="{StaticResource AutorizationButton}"/>
 
@@ -68,32 +69,22 @@
                                                     Margin="0,0,0,29"/>
                 </Grid>
             </Border>
+            
             <Border HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                    Height="80"  BorderThickness="0,1,5,0" CornerRadius="0,100,0,0" Background="#B2191919">
+                    Height="50"  BorderThickness="0,1,5,0" CornerRadius="0,100,0,0" Background="#B2191919">
                 <TextBlock Text="{Binding FilmViewModel.Name, NotifyOnTargetUpdated=True}" 
-                           TextWrapping="Wrap" Name="FilmName" SizeChanged="FilmName_OnSizeChanged"
+                           TextWrapping="Wrap" Name="FilmName"
                            VerticalAlignment="Center" FontSize="15" MaxHeight="18"
-                           Margin="10,5,30,5" Width="Auto"
+                           Margin="10,5,30,5"
                            Foreground="#FFF9F9F9" Background="#00000000" 
                            FlowDirection="LeftToRight" HorizontalAlignment="Stretch">
                     <TextBlock.Triggers>
-                        <EventTrigger RoutedEvent="TextBlock.Loaded">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation
-                                        Storyboard.TargetProperty="(TextBlock.Width)"
-                                        To="0.0" Duration="0:0:1" 
-                                        AutoReverse="True" RepeatBehavior="Forever" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
                         <EventTrigger RoutedEvent="Binding.TargetUpdated">
                             <BeginStoryboard>
                                 <Storyboard TargetName="FilmName">
-                                    <!--<DoubleAnimation Storyboard.TargetProperty="(TextBlock.Width)" To="0.0"
-                                                     AutoReverse="True" RepeatBehavior="Forever" Duration="0:0:1"/>-->
-                                            <!--<DoubleAnimation Storyboard.TargetProperty="Width" 
-                                                             From="0" To="{Binding ElementName=FilmName, Path=ActualWidth}" Duration="0:0:0:1"/>-->
+                                    <!--<DoubleAnimation
+                                                Storyboard.TargetProperty="Width" From="0.0"
+                                                To="{Binding ElementName=HiddenTextBlock, Path=ActualWidth}" Duration="0:0:1" />-->
                                     <DoubleAnimation Storyboard.TargetProperty="Opacity" 
                                                      From="0" To="1" Duration="0:0:0:1"/>
                                 </Storyboard>
@@ -101,16 +92,6 @@
                         </EventTrigger>
                     </TextBlock.Triggers>
                 </TextBlock>
-                <!--<Border.Triggers>
-                    <EventTrigger RoutedEvent="TextBlock.Loaded">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="Width" 
-                                                From="0" To="{Binding ElementName=FilmName, Path=ActualWidth}" Duration="0:0:0:1"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Border.Triggers>-->
             </Border>
         </Grid>
 
