@@ -5,15 +5,14 @@ using Films.Models.Web.HttpClients;
 using Films.Models.Web.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ModelsTest.Web_Test.Parsers_Tests
+namespace ModelsTest.Models_Test.Web_Test.Parsers_Tests
 {
     [TestClass]
-    public class LordfilmParserTests
+    public class NamesPreviewLordfilmParserTests
     {
         [TestMethod]
         public async Task Get_One_bing_film_contains_site_name()
         {
-
             var localSiteSearcher = new LocalSiteSearcher();
             await localSiteSearcher.SearchWorkingSitesAsync();
 
@@ -24,9 +23,9 @@ namespace ModelsTest.Web_Test.Parsers_Tests
 
             string siteHtml = await PublicHttp.GetInstance().Client.GetStringAsync(workingLink);
 
-            var filmsName = await new LordfilmParser().GetPopularFilmsName(siteHtml, 5);
+            var filmsName = await new NamesPreviewLordfilmParser().GetPopularFilmsName(siteHtml, 5);
 
-            Assert.IsTrue(5 == filmsName.Count());
+            Assert.IsTrue(filmsName.Count() == 5);
         }
     }
 }
