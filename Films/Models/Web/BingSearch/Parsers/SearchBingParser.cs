@@ -38,7 +38,7 @@ namespace Films.Models.Web.BingSearch.Parsers
 
                 var siteHtml = await httpResponse.Content.ReadAsStringAsync();
                 //Проверка на корректный html, методом парсинга
-                var filmNamesCollection = await new LordfilmParser().GetPopularFilmsName(siteHtml, 5);
+                var filmNamesCollection = await new NamesPreviewLordfilmParser().GetPopularFilmsName(siteHtml, 5);
 
                 if (filmNamesCollection.Count() == 5)
                     yield return workingLink;

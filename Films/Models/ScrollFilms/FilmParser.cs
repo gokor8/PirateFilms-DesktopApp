@@ -22,7 +22,7 @@ namespace Films.Models.ScrollFilms
             Bing bing = new Bing();
             
             string html = await _siteHttp.Client.GetStringAsync(_siteHttp.Client.BaseAddress);
-            var filmNamesCollection = await new LordfilmParser().GetPopularFilmsName(html, 5);
+            var filmNamesCollection = await new NamesPreviewLordfilmParser().GetPopularFilmsName(html, 5);
 
             for (int countFilms = 0; countFilms < filmNamesCollection.Count(); countFilms++) 
             {
@@ -38,7 +38,7 @@ namespace Films.Models.ScrollFilms
 
                     IBingFactory factory = new ImageBingFactory();
 
-                    string bingSearchHtml = await bing.GetSearchResultAsync(nameFilm + " фильм",
+                    string bingSearchHtml = await bing.GetSearchResultAsync(nameFilm.Contains("фильм")? nameFilm : " фильм",
                         factory.CreateBingSettings("&qft=+filterui%3aimagesize-custom_1000_1000&first=1&tsc=ImageBasicHover"));
 
                     string linkImage = await factory.CreateBingParser().GetWorkingLinksAsync(bingSearchHtml).FirstAsync();
