@@ -4,25 +4,77 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Films.Activitis"
+        xmlns:converter="clr-namespace:Films.Views.Converters"
+        xmlns:vm="clr-namespace:Films.ViewModels.FilmsViewModels"
         mc:Ignorable="d"
-        Title="FilmsWindow" Height="500" Width="1000"
+        Title="FilmsWindow" Height="700" Width="1010"
         Background="#272537">
+    
+    <Window.Resources>
+        <converter:PathConverter x:Key="PathConverter"/>
+    </Window.Resources>
+    
+    <Window.DataContext>
+        <vm:FilmsViewModel></vm:FilmsViewModel>
+    </Window.DataContext>
     
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="430"/>
+            <RowDefinition Height="2.5*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="940"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0">
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
             
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Популярные фильмы" Foreground="White" FontSize="20"
+                       TextTrimming="None" TextWrapping="WrapWithOverflow"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="5" TextAlignment="Center"/>
+            <ToggleButton Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                   Margin="0,5,0,0"
+            />
+            </Grid>
+            
+            <ItemsControl Grid.Column="1" ItemsSource="{Binding popularFilms}"
+                          Background="Transparent" BorderThickness="0" 
+                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                    <Border Margin="5,3,5,0" Background="#70484848" Width="161" Style="{StaticResource BorderSelectedAnimation}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="4*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Image Source="{Binding Path=PictureLink}" Margin="5"
+                                   VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Path=Name}"
+                                       Foreground="White" TextWrapping="WrapWithOverflow"
+                                       TextAlignment="Center" FontSize="12" Margin="1"/>
+                        </Grid>
+                    </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1">
             
         </Grid>
     </Grid>
