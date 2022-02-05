@@ -7,12 +7,10 @@ namespace Films.Models.Web.Parsers
 {
     public class NamesPreviewLordfilmParser : LordfilmParser<string>
     {
-        protected readonly ParserCore _parser = new ParserCore();
-
         public override async Task<IEnumerable<string>> GetPopularFilmsName(string siteHtml, int countFilms)
         {
             List<string> filmNames = new List<string>();
-            var htmlDocument = await _parser.Context.OpenAsync(req => req.Content(siteHtml));
+            var htmlDocument = await Parser.Context.OpenAsync(req => req.Content(siteHtml));
 
             var filmElements = htmlDocument.QuerySelectorAll("div.sect-cont.sect-items.clearfix div.th-title");
 
@@ -22,7 +20,7 @@ namespace Films.Models.Web.Parsers
 
             for (int countFilm = 0; countFilm < countFilms; countFilm++)
             {
-                string nameFilm = _parser.ClearWhiteSpaces(filmElements[countFilm]?.TextContent);
+                string nameFilm = Parser.ClearWhiteSpaces(filmElements[countFilm]?.TextContent);
 
                 filmNames.Add(nameFilm ?? String.Empty);
             }

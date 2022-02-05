@@ -11,7 +11,7 @@ namespace Films.Models.Web.Parsers
         public override async Task<IEnumerable<Film>> GetPopularFilmsName(string siteHtml, int countFilms)
         {
             List<Film> filmNames = new List<Film>();
-            var htmlDocument = await _parser.Context.OpenAsync(req => req.Content(siteHtml));
+            var htmlDocument = await Parser.Context.OpenAsync(req => req.Content(siteHtml));
 
             var filmElements = htmlDocument.QuerySelectorAll("div.sect-cont.sect-items.clearfix div.th-item");
 
@@ -21,7 +21,7 @@ namespace Films.Models.Web.Parsers
 
             for (int countFilm = 0; countFilm < countFilms; countFilm++)
             {
-                string nameFilm = _parser.ClearWhiteSpaces(filmElements[countFilm]?.QuerySelector("div.th-title")?.TextContent);
+                string nameFilm = Parser.ClearWhiteSpaces(filmElements[countFilm]?.QuerySelector("div.th-title")?.TextContent);
                 string pictureLink = filmElements[countFilm]?.QuerySelector("img")?.GetAttribute("srcset");
 
                 if (nameFilm == null || pictureLink == null)
