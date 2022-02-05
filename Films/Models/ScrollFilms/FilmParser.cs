@@ -38,7 +38,7 @@ namespace Films.Models.ScrollFilms
 
                     IBingFactory factory = new ImageBingFactory();
 
-                    string bingSearchHtml = await bing.GetSearchResultAsync(nameFilm.Contains("фильм")? nameFilm : " фильм",
+                    string bingSearchHtml = await bing.GetSearchResultAsync(nameFilm.Contains(" фильм")? nameFilm : nameFilm+" фильм",
                         factory.CreateBingSettings("&qft=+filterui%3aimagesize-custom_1000_1000&first=1&tsc=ImageBasicHover"));
 
                     string linkImage = await factory.CreateBingParser().GetWorkingLinksAsync(bingSearchHtml).FirstAsync();
