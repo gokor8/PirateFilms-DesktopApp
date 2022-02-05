@@ -8,7 +8,7 @@
                 <Trigger.EnterActions>
                 <BeginStoryboard>
                     <Storyboard TargetProperty="Background.(SolidColorBrush.Color)">
-                        <ColorAnimation Duration="0:0:1" To="Red"/>
+                        <ColorAnimation Duration="0:0:1" To="#70991917"/>
                     </Storyboard>
                 </BeginStoryboard>
                 </Trigger.EnterActions>
