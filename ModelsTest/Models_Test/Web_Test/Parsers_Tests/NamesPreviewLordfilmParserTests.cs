@@ -10,22 +10,38 @@ namespace ModelsTest.Models_Test.Web_Test.Parsers_Tests
     [TestClass]
     public class NamesPreviewLordfilmParserTests
     {
-        [TestMethod]
-        public async Task Get_One_bing_film_contains_site_name()
+        private string _siteLink;
+        
+        [TestInitialize]
+        public async Task Search_site_link()
         {
             var localSiteSearcher = new LocalSiteSearcher();
             await localSiteSearcher.SearchWorkingSitesAsync();
 
-            var workingLink = localSiteSearcher.WorkingLinks.FirstOrDefault();
+            _siteLink = localSiteSearcher.WorkingLinks.FirstOrDefault();
 
-            if (workingLink == null)
+            if (_siteLink == null)
                 Assert.Fail("В базе данных нет рабочей ссылки");
+        }
+        
+        [TestMethod]
+        public async Task Get_5_bing_film_contains_site_name()
+        {
+            string siteHtml = await PublicHttp.GetInstance().Client.GetStringAsync(_siteLink);
 
-            string siteHtml = await PublicHttp.GetInstance().Client.GetStringAsync(workingLink);
+            var filmsName = await new NamesPreviewLordfilmParser().GetFilms(siteHtml).Take(5).ToListAsync();
 
-            var filmsName = await new NamesPreviewLordfilmParser().GetPopularFilmsName(siteHtml, 5);
+            Assert.IsTrue(filmsName.Count == 5);
+        }
+        
+        [TestMethod]
+        public async Task Get_All_bing_film_contains_site_name()
+        {
+            string siteHtml = await PublicHttp.GetInstance().Client.GetStringAsync(_siteLink);
 
-            Assert.IsTrue(filmsName.Count() == 5);
+            var filmsName = await new NamesPreviewLordfilmParser().GetFilms(siteHtml).ToListAsync();
+
+            Assert.IsTrue(filmsName.Count > 0);
         }
     }
 }

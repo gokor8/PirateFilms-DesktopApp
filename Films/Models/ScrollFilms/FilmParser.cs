@@ -22,9 +22,9 @@ namespace Films.Models.ScrollFilms
             Bing bing = new Bing();
             
             string html = await _siteHttp.Client.GetStringAsync(_siteHttp.Client.BaseAddress);
-            var filmNamesCollection = await new NamesPreviewLordfilmParser().GetPopularFilmsName(html, 5);
+            var filmNamesCollection = await new NamesPreviewLordfilmParser().GetFilms(html).Take(5).ToListAsync();
 
-            for (int countFilms = 0; countFilms < filmNamesCollection.Count(); countFilms++) 
+            for (int countFilms = 0; countFilms < filmNamesCollection.Count; countFilms++) 
             {
                 int copyCount = countFilms;
 

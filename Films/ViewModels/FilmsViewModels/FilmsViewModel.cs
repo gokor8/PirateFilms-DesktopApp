@@ -31,16 +31,16 @@ namespace Films.ViewModels.FilmsViewModels
                 {
                     var filmsSite = await SiteFilmsHttp.GetInstanceAsync();
                     var siteHtml = await filmsSite.Client.GetStringAsync("/");
-                    var filmsCollection = await new FilmsPreviewLordfilmParser().GetPopularFilmsName(siteHtml, 5);
+                    var filmsCollection = new FilmsPreviewLordfilmParser().GetFilms(siteHtml).Take(5);
 
                     ObservableCollection<FilmDataViewModel> filmsViewModels = new ObservableCollection<FilmDataViewModel>();
 
-                    foreach (var film in filmsCollection)
+                    await foreach (var film in filmsCollection)
                     {
                         filmsViewModels.Add(new FilmDataViewModel()
                         {
                             Name = film.Name,
-                            PictureLink = film.Picture
+                            PictureLink = filmsSite.Client.BaseAddress + film.Picture
                         });
                     }
 
