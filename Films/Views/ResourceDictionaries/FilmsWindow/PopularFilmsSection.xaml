@@ -4,14 +4,12 @@
     <Style x:Key="AnimationToggleButton" TargetType="{x:Type ToggleButton}">
         
         <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Height}"/>
-        
         <Setter Property="RenderTransformOrigin" Value="0.5 0.5"></Setter>
         <Setter Property="RenderTransform">
             <Setter.Value>
                 <RotateTransform Angle="0"/>
             </Setter.Value>
         </Setter>
-        
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -49,5 +47,39 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        
+    </Style>
+    
+    <Style x:Key="LoginNameTextBox" TargetType="TextBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderThickness="0" Background="#70484848">
+                        <ScrollViewer x:Name="PART_ContentHost" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=ToggleButton, Path=IsChecked}" Value="True">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.4"
+                                             To="1.0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.2"
+                                             To="0.0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.ExitActions>
+            </DataTrigger>
+        </Style.Triggers>
+        
     </Style>
 </ResourceDictionary>
