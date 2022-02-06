@@ -5,7 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ResourceDictionaries/FilmsWindow/BasedOnStyles.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="ResourceDictionaries/FilmsWindow/FilmsBasedOnStyles.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="ResourceDictionaries/FilmsWindow/PopularFilmsSection.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="ResourceDictionaries/MainWindow/AutorizationGrid/AutorizationTextStyles.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="ResourceDictionaries/MainWindow/AutorizationGrid/AutorizationButtonStyles.xaml"></ResourceDictionary>

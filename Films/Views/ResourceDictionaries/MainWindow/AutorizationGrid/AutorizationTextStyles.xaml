@@ -3,7 +3,7 @@
                     xmlns:components="clr-namespace:Films.Views.Components">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../BasedOnStyles.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="../MainBasedOnStyles.xaml"></ResourceDictionary>
         <ResourceDictionary Source="../BasedOnValidationStyles.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 

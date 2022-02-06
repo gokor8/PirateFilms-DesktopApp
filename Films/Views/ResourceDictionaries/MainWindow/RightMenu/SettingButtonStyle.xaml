@@ -4,7 +4,7 @@
                     >
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../BasedOnStyles.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="../MainBasedOnStyles.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
     <converter:WidthConverter x:Key="WidthConverter"/>
@@ -13,19 +13,19 @@
     <Storyboard x:Key="ClosingAnimation" Name="ab">
         <DoubleAnimation 
             Storyboard.TargetProperty="Background.Opacity"
-            Duration="0:0:1" From="0.3" To="1"/>
+            Duration="0:0:0.4" From="0.3" To="1"/>
         <DoubleAnimation 
             Storyboard.TargetProperty="Height"
-            Duration="0:0:1" To="50"/>
+            Duration="0:0:0.4" To="50"/>
     </Storyboard>
     
     <Storyboard x:Key="OpeningAnimation">
         <DoubleAnimation 
             Storyboard.TargetProperty="Opacity"
-            Duration="0:0:1" From="0.3" To="1"/>
+            Duration="0:0:0.4" From="0.3" To="1"/>
         <DoubleAnimation 
             Storyboard.TargetProperty="Height"
-            Duration="0:0:1" To="40"/>
+            Duration="0:0:0.4" To="40"/>
     </Storyboard>
     
     <Style x:Key="RightPathButton" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonShadowLite}">
