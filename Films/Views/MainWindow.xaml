@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mainViewModel="clr-namespace:Films.ViewModels.MainViewModel"
+        xmlns:mainViewModel="clr-namespace:Films.ViewModels.MainViewModels"
         xmlns:components="clr-namespace:Films.Views.Components"
         xmlns:mainViewModels="clr-namespace:Films.ViewModels.MainViewModels"
         ResizeMode="NoResize"
@@ -41,10 +41,10 @@
               Height="Auto" Background="#26474646">
             
             <TextBox HorizontalAlignment="Center" VerticalAlignment="Top" IsReadOnly="True" TextAlignment="Center" Foreground="White"
-                       Height="70" Width="220" Opacity="0.0" Text="{Binding AutorizationVm.BadSignIn, NotifyOnTargetUpdated=True}">
+                       Height="70" Width="220" Opacity="0.0" Text="{Binding AutorizationViewModel.BadSignIn, NotifyOnTargetUpdated=True}">
                 <TextBox.Template>
                     <ControlTemplate>
-                        <Border Background="#70991917" BorderThickness="3">
+                        <Border Background="#70ffffff" BorderThickness="3">
                             <ScrollViewer VerticalAlignment="Center" HorizontalAlignment="Center"
                                           x:Name="PART_ContentHost" />
                         </Border>
@@ -56,7 +56,7 @@
                             <EventTrigger RoutedEvent="Binding.TargetUpdated">
                                 <BeginStoryboard>
                                     <Storyboard TargetProperty="Opacity">
-                                        <DoubleAnimation Duration="0:0:4" To="1.0" AutoReverse="True"/>
+                                        <DoubleAnimation Duration="0:0:2" To="1.0" AutoReverse="True"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -67,7 +67,7 @@
 
             <Border Height="220" Width="260" HorizontalAlignment="Center" VerticalAlignment="Center"
                     BorderThickness="1,1,1,1" Background="#66474646" CornerRadius="3">
-                <Grid DataContext="{Binding AutorizationVm}">
+                <Grid DataContext="{Binding AutorizationViewModel}">
 
                     <Button Command="{Binding SignUp}" x:Name="Autorization"
                             Content ="ВОЙТИ" Width="110" Height="25"
