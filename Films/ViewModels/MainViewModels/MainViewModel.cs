@@ -5,43 +5,33 @@ namespace Films.ViewModels.MainViewModels
 {
     class MainViewModel : INPC
     {
-        private FilmTimer timer;
-        private IWindowChanger _windowChanger = new FilmWindowChanger();
+        private readonly FilmTimer _timer;
+        private readonly IWindowChanger _windowChanger = new FilmWindowChanger();
+        
+        private FilmViewModel _filmViewModel;
         
         public MainViewModel()
         {
-            timer = new FilmTimer();
+            _timer = new FilmTimer();
 
-            timer.OnData += (filmModel) =>
+            _timer.OnData += (filmModel) =>
             {
                 if (filmModel != null)
                     FilmViewModel = new FilmViewModel() {Name = filmModel.Name, Picture = filmModel.Picture};
             };
-            timer.StartTimer();
+            _timer.StartTimer();
 
-            AutorizationVM = new AutorizationVm(_windowChanger);
+            AutorizationVm = new AuthorizationViewModel(_windowChanger);
             FilmViewModel = new FilmViewModel() {Name = "....."};
         }
 
-        private AutorizationVm _autorizationVM;
-        public AutorizationVm AutorizationVM
-        {
-            get => _autorizationVM;
-            set
-            {
-                _autorizationVM = value;
-                //OnPropertyChanged();
-            }
-        }
-
-        private FilmViewModel filmViewModel;
-
+        public AuthorizationViewModel AutorizationVm { get; }
         public FilmViewModel FilmViewModel
         {
-            get => filmViewModel;
-            set
+            get => _filmViewModel;
+            private set
             {
-                filmViewModel = value;
+                _filmViewModel = value;
                 OnPropertyChanged();
             }
         }
