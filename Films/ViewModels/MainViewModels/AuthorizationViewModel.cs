@@ -4,13 +4,16 @@ using System.Windows.Input;
 using Films.Models.Loginners;
 using Films.ViewModels.MainViewModel.Validations;
 
-namespace Films.ViewModels.MainViewModel
+namespace Films.ViewModels.MainViewModels
 {
-    internal class AutorizationVm : INPC
+    internal class AuthorizationViewModel : INPC
     {
         private CancellationTokenSource _singUpToken = new CancellationTokenSource();
-        private IWindowChanger _windowChanger;
-        public AutorizationVm(IWindowChanger windowChanger)
+        private readonly IWindowChanger _windowChanger;
+
+        private string _badSignIn;
+        
+        public AuthorizationViewModel(IWindowChanger windowChanger)
         {
             _windowChanger = windowChanger;
             
@@ -18,10 +21,21 @@ namespace Films.ViewModels.MainViewModel
             PasswordValidator = new PasswordValidator();
         }
 
-        public LoginValidator LoginValidator { get; set; }
+        public LoginValidator LoginValidator { get; }
 
-        public PasswordValidator PasswordValidator { get; set; }
+        public PasswordValidator PasswordValidator { get; }
 
+        
+        public string BadSignIn
+        {
+            get => _badSignIn; 
+            set
+            {
+                _badSignIn = value;
+                OnPropertyChanged();
+            }
+        }
+        
         public ICommand SignUp => new DelegateCommand(async obj =>
         {
             _singUpToken = new CancellationTokenSource();
@@ -33,12 +47,12 @@ namespace Films.ViewModels.MainViewModel
 
             if (loginnerTask.IsVerify)
             {
+                _windowChanger.SetTransferAttribute(LoginValidator.Login);
                 _windowChanger.CloseAndOpen();
-                //В основное окно идем епте
-                System.Windows.MessageBox.Show("Logged");
             }
             else
             {
+                BadSignIn = loginnerTask.AcscessString;
                 //Вылетает штука вверху, как в Fiddler, не верный лоджин или пароль
                 System.Windows.MessageBox.Show("Dont Logged");
             }
@@ -49,6 +63,8 @@ namespace Films.ViewModels.MainViewModel
         public ICommand SignByGhost => new DelegateCommand((obj) =>
         {
             _singUpToken.Cancel();
+            
+            _windowChanger.SetTransferAttribute("Гость");
             _windowChanger.CloseAndOpen();
         });
     }
