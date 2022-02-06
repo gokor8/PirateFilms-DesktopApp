@@ -8,7 +8,7 @@
         xmlns:mainViewModels="clr-namespace:Films.ViewModels.MainViewModels"
         ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="800">
 
     <Window.DataContext>
         <mainViewModels:MainViewModel/>
@@ -40,12 +40,34 @@
               Grid.Column="0"
               Height="Auto" Background="#26474646">
             
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"
-                       Height="90" Width="320" Visibility="Hidden"/>
+            <TextBox HorizontalAlignment="Center" VerticalAlignment="Top" IsReadOnly="True" TextAlignment="Center" Foreground="White"
+                       Height="70" Width="220" Opacity="0.0" Text="{Binding AutorizationVm.BadSignIn, NotifyOnTargetUpdated=True}">
+                <TextBox.Template>
+                    <ControlTemplate>
+                        <Border Background="#70991917" BorderThickness="3">
+                            <ScrollViewer VerticalAlignment="Center" HorizontalAlignment="Center"
+                                          x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </TextBox.Template>
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                                <BeginStoryboard>
+                                    <Storyboard TargetProperty="Opacity">
+                                        <DoubleAnimation Duration="0:0:4" To="1.0" AutoReverse="True"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
 
             <Border Height="220" Width="260" HorizontalAlignment="Center" VerticalAlignment="Center"
                     BorderThickness="1,1,1,1" Background="#66474646" CornerRadius="3">
-                <Grid DataContext="{Binding AutorizationVM}">
+                <Grid DataContext="{Binding AutorizationVm}">
 
                     <Button Command="{Binding SignUp}" x:Name="Autorization"
                             Content ="ВОЙТИ" Width="110" Height="25"
