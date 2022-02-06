@@ -3,79 +3,128 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Films.Activitis"
-        xmlns:converter="clr-namespace:Films.Views.Converters"
         xmlns:vm="clr-namespace:Films.ViewModels.FilmsViewModels"
         mc:Ignorable="d"
-        Title="FilmsWindow" Height="700" Width="1010"
+        Title="FilmsWindow" Height="700" Width="1060"
         Background="#272537">
-    
-    <Window.Resources>
-        <converter:PathConverter x:Key="PathConverter"/>
-    </Window.Resources>
-    
-    <Window.DataContext>
-        <vm:FilmsViewModel></vm:FilmsViewModel>
-    </Window.DataContext>
     
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="2.5*"/>
         </Grid.RowDefinitions>
 
-
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" MaxHeight="210" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="6*"/>
             </Grid.ColumnDefinitions>
             
-            <Grid>
+            <TextBox Grid.Column="1" Foreground="White" FontSize="14" Opacity="0.0" IsReadOnly="True"
+                     Text="{Binding LoginText}" Margin="0,2,8,0"
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"
+                     Style="{StaticResource LoginNameTextBox}"/>
+            
+            <Grid Grid.Column="0" Width="171">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="4*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
             
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Популярные фильмы" Foreground="White" FontSize="20"
-                       TextTrimming="None" TextWrapping="WrapWithOverflow"
-                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                       Margin="5" TextAlignment="Center">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Рекомендуемые к просмотру" MaxHeight="170"
+                       Foreground="White" FontSize="20"
+                       TextWrapping="WrapWithOverflow" TextAlignment="Center"
+                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
+                <ToggleButton Name="ToggleButton" Grid.Column="0" Grid.Row="1"
+                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                          Margin="0,5,0,0" Style="{StaticResource AnimationToggleButton}"/>
+            </Grid>
+            
+            <ItemsControl Grid.Column="1" Name="ItemsControls" ItemsSource="{Binding RecommendFilmsViewModel.RecommendFilms}"
+                          Background="Transparent" BorderThickness="0"
+                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="5,3,5,0" Background="#70484848" Width="161" Style="{StaticResource BorderSelectedAnimation}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="4*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Image Source="{Binding Path=PictureLink}" Margin="5"
+                                   VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                <TextBlock Grid.Row="1" Text="{Binding Path=Name}"
+                                       Foreground="White" TextWrapping="WrapWithOverflow"
+                                       TextAlignment="Center" FontSize="12" Margin="1"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.Style>
+                    <Style TargetType="ItemsControl">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ElementName=ToggleButton, Path=IsChecked}" Value="True">
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard>
-                                        <Storyboard TargetProperty="Height">
-                                            <ObjectAnimationUsingKeyFrames Duration="0:0:0.3"/>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.4"
+                                                             To="0.0"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.EnterActions>
                                 <DataTrigger.ExitActions>
                                     <BeginStoryboard>
-                                        <Storyboard TargetProperty="Opacity">
-                                            <DoubleAnimation Duration="0:0:0.3" To="1.0"/>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.4"
+                                                             To="1.0"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.ExitActions>
-                                <Setter Property="Height" Value="0"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </TextBlock.Style>
-            </TextBlock>
-            <ToggleButton Name="ToggleButton" Grid.Column="0" Grid.Row="1" 
-                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                          Margin="0,5,0,0" Style="{StaticResource AnimationToggleButton}"/>
-            </Grid>
+                </ItemsControl.Style>
+            </ItemsControl>
             
-            <ItemsControl Grid.Column="1" Name="ItemsControls" ItemsSource="{Binding popularFilms}"
+            <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=ToggleButton, Path=IsChecked}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard TargetProperty="(Grid.MaxHeight)">
+                                            <DoubleAnimation Duration="0:0:0.3" To="20.0"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard TargetProperty="(Grid.MaxHeight)">
+                                            <DoubleAnimation Duration="0:0:0.3" To="210.0"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+            </Grid.Style>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding DefaultFilmsViewModel.DefaultFilms}"
                           Background="Transparent" BorderThickness="0" 
                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                    <Border Margin="5,3,5,0" Background="#70484848" Width="161" Style="{StaticResource BorderSelectedAnimation}">
+                    <Border Margin="5,0,5,10" Background="#70484848" Width="161" Style="{StaticResource BorderSelectedAnimation}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="4*"/>
@@ -92,39 +141,11 @@
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
+                        <WrapPanel/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                
-                <ItemsControl.Style>
-                    <Style TargetType="ItemsControl">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=ToggleButton, Path=IsChecked}" Value="True">
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard TargetProperty="Height">
-                                            <ObjectAnimationUsingKeyFrames Duration="0:0:0.3"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard TargetProperty="Opacity">
-                                            <DoubleAnimation Duration="0:0:0.3" To="1.0"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.ExitActions>
-                                <Setter Property="Height" Value="0"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ItemsControl.Style>
-                
             </ItemsControl>
-            </Grid>
-
-        <Grid Grid.Row="1">
-            
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Window>
