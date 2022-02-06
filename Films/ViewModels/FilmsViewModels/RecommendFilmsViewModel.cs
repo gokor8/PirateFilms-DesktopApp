@@ -15,7 +15,7 @@ namespace Films.ViewModels.FilmsViewModels
         public RecommendFilmsViewModel(int filmsPreviewCount)
         {
             FilmsPreviewCount = filmsPreviewCount;
-            RecommendFilms = new ObservableCollection<FilmDataViewModel>() {new FilmDataViewModel() {Name = "...."}};
+            RecommendFilms = new ObservableCollection<FilmDataViewModel>() { new FilmDataViewModel() {Name = "...."} };
         }
 
         public ObservableCollection<FilmDataViewModel> RecommendFilms

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Films.Models.Loginners;
-using Films.ViewModels.MainViewModel.Validations;
+using Films.ViewModels.MainViewModels.Validations;
 
 namespace Films.ViewModels.MainViewModels
 {
@@ -41,7 +41,7 @@ namespace Films.ViewModels.MainViewModels
             _singUpToken = new CancellationTokenSource();
 
             var loginnerTask = await Task.Run(() =>
-                    new LoginnerBuilder().VerifyLogin(LoginValidator.Login)
+                    new LogginerBuilder().VerifyLogin(LoginValidator.Login)
                         .VerifyPassword(PasswordValidator.Password).GetVerifyResult()
                 , _singUpToken.Token);
 
@@ -54,7 +54,6 @@ namespace Films.ViewModels.MainViewModels
             {
                 BadSignIn = loginnerTask.AcscessString;
                 //Вылетает штука вверху, как в Fiddler, не верный лоджин или пароль
-                System.Windows.MessageBox.Show("Dont Logged");
             }
         }, obg => (!LoginValidator.HasErrors && !PasswordValidator.HasErrors) && 
                   (LoginValidator.Login?.Length != null && PasswordValidator.Password?.Length != null));

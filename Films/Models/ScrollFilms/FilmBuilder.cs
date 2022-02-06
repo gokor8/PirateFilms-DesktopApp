@@ -1,17 +1,18 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Films.Models.DataModels;
 using Films.Models.Web.HttpClients;
 using Films.MVVMLogic.Models;
 
 namespace Films.Models.ScrollFilms
 {
-    public class FilmBuilder
+    public sealed class FilmBuilder
     {
-        public Film Film { get; } = new Film();
-
         private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
+        public Film Film { get; } = new Film();
+        
         public FilmBuilder SetName(string name)
         {
             if (name != "" || name != " ")
@@ -29,7 +30,7 @@ namespace Films.Models.ScrollFilms
             Directory.CreateDirectory(appData);
 
             string downloadedPicturePath = string.Empty;
-            //Скачиваю картинку
+            
             Task.Run(async () =>
             {
                 downloadedPicturePath = await _publicHttp.Download(link, appData + "/" + numberFilm + ".jpg");

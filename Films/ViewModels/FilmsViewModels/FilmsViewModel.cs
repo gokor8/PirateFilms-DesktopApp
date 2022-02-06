@@ -2,14 +2,15 @@
 {
     public class FilmsViewModel : INPC
     {
-        public FilmsViewModel(string login)
+        private string _loginText;
+        
+        public FilmsViewModel(string login, int recommendFilmsCount = 5)
         {
             LoginText = login;
-            RecommendFilmsViewModel = new RecommendFilmsViewModel(5);
-            DefaultFilmsViewModel = new DefaultFilmsViewMode(RecommendFilmsViewModel.FilmsPreviewCount);
+            RecommendFilmsViewModel = new RecommendFilmsViewModel(recommendFilmsCount);
+            DefaultFilmsViewModel = new DefaultFilmsViewMode(recommendFilmsCount);
         }
-
-        private string _loginText;
+        
         public string LoginText
         {
             get => _loginText;

@@ -3,11 +3,12 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using Films.Models.DataModels;
 using Films.MVVMLogic.Models;
 
 namespace Films.Models.ScrollFilms
 {
-    class FilmTimer
+    sealed class FilmTimer
     {
         public delegate void CurrentFilmData(Film filmVM);
         public event CurrentFilmData OnData;

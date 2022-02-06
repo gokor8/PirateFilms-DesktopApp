@@ -1,7 +1,8 @@
 ﻿namespace Films.Models.Web.BingSearch.SettingsSearch
 {
-    public class SearchBingSettings : IBingSettings
+    public sealed class SearchBingSettings : IBingSettings
     {
+        public string SearchType => string.Empty;
         public SearchBingSettings()
         { }
 
@@ -11,6 +12,5 @@
         }
 
         public string SearchParametrs { get; } = string.Empty;
-        public string SearchType => string.Empty;
     }
 }

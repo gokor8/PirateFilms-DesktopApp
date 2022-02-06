@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Films.Models.DataModels;
 using Films.Models.Web.BingSearch;
 using Films.Models.Web.BingSearch.Factories;
 using Films.Models.Web.HttpClients;
@@ -9,7 +10,7 @@ using Films.MVVMLogic.Models;
 
 namespace Films.Models.ScrollFilms
 {
-    public class FilmParser
+    public sealed class FilmParser
     {
         private SiteFilmsHttp _siteHttp;
 

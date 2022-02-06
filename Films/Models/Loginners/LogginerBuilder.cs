@@ -6,9 +6,9 @@ using Films.MVVMLogic.Models;
 
 namespace Films.Models.Loginners
 {
-    public class LoginnerBuilder
+    public class LogginerBuilder
     {
-        private readonly List<Loginner> _loginners = new List<Loginner>();
+        private readonly List<Logginer> _logginers = new List<Logginer>();
         protected void AddLogginer(string acscessString, bool isFound)
         {
             StringBuilder builder = new StringBuilder(acscessString);
@@ -17,10 +17,10 @@ namespace Films.Models.Loginners
             if (isFound)
                 builder.Clear();
 
-            _loginners.Add(new Loginner() { AcscessString = builder.ToString(), IsVerify = isFound });
+            _logginers.Add(new Logginer() { AcscessString = builder.ToString(), IsVerify = isFound });
         }
 
-        public LoginnerBuilder VerifyLogin(string login)
+        public LogginerBuilder VerifyLogin(string login)
         {
             using (var context = new UserContext())
             {
@@ -31,7 +31,7 @@ namespace Films.Models.Loginners
             return this;
         }
 
-        public LoginnerBuilder VerifyPassword(string password)
+        public LogginerBuilder VerifyPassword(string password)
         {
             using (var context = new UserContext())
             {
@@ -41,15 +41,15 @@ namespace Films.Models.Loginners
             return this;
         }
 
-        public Loginner GetVerifyResult()
+        public Logginer GetVerifyResult()
         {
-            Loginner currentDataStore = new Loginner();
+            Logginer currentDataStore = new Logginer();
 
-            foreach (var logginer in _loginners)
+            foreach (var logginer in _logginers)
             {
                 currentDataStore.AcscessString += logginer.AcscessString;
 
-                if (!currentDataStore.IsVerify)
+                if (currentDataStore.IsVerify)
                     currentDataStore.IsVerify = logginer.IsVerify;
             }
 

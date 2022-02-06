@@ -11,11 +11,11 @@ namespace Films.Models.Web.BingSearch
     {
         private readonly PublicHttp _publicHttp = PublicHttp.GetInstance();
 
-        private IBingSettings bingSettings;
+        private IBingSettings _bingSettings;
 
         public async Task<string> GetSearchResultAsync(string textRequest, IBingSettings bingSettings)
         {
-            this.bingSettings = bingSettings;
+            this._bingSettings = bingSettings;
 
             string contentResponse = null;
             int numberIteration = 0;
@@ -36,10 +36,10 @@ namespace Films.Models.Web.BingSearch
         private async Task<string> GetBingResponseAsync(string textRequest)
         {
             textRequest = $"https://www.bing.com/" +
-                          $"{bingSettings.SearchType}" +
+                          $"{_bingSettings.SearchType}" +
                           $"search?q={HttpUtility.UrlEncode(textRequest.Trim().Replace(" ", "+"))}" +
                           "&rdr=1" +
-                          $"{bingSettings.SearchParametrs}";
+                          $"{_bingSettings.SearchParametrs}";
             var response = await _publicHttp.Client?.GetAsync(textRequest)!;
 
             string html = await response.Content.ReadAsStringAsync();

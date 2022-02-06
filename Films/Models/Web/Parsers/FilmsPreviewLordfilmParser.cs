@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AngleSharp;
-using Films.MVVMLogic.Models;
+using Films.Models.DataModels;
 
 namespace Films.Models.Web.Parsers
 {

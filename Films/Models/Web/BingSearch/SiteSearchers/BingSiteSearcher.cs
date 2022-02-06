@@ -34,12 +34,12 @@ namespace Films.Models.Web.BingSearch.SiteSearchers
             );
         }
 
-        private void refreshDatabaseLinks(IEnumerable<string> WorkingLinks)
+        private void refreshDatabaseLinks(IEnumerable<string> workingLinks)
         {
             //Передаю сюда ссылку на объект, чтобы не было проблем с доступом в многопоточности
             using (var context = new SitesContext())
             {
-                foreach (var workingLink in WorkingLinks)
+                foreach (var workingLink in workingLinks)
                 {
                     if(context.Links.Count(l=>l.WorkingLink == workingLink) <= 0)
                         context.Links.AddOrUpdate(new Link() { WorkingLink = workingLink });

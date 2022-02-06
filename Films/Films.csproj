@@ -154,7 +154,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ResourceDictionaries\FilmsWindow\BasedOnStyles.xaml" />
+    <Page Include="Views\ResourceDictionaries\FilmsWindow\FilmsBasedOnStyles.xaml" />
     <Page Include="Views\ResourceDictionaries\FilmsWindow\PopularFilmsSection.xaml" />
     <Page Include="Views\ResourceDictionaries\MainWindow\AutorizationGrid\AutorizationButtonStyles.xaml">
       <SubType>Designer</SubType>
@@ -164,7 +164,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ResourceDictionaries\MainWindow\BasedOnStyles.xaml">
+    <Page Include="Views\ResourceDictionaries\MainWindow\MainBasedOnStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -180,8 +180,8 @@
   <ItemGroup>
     <Compile Include="Models\DataBaseLogic\UserDataBse\User.cs" />
     <Compile Include="Models\DataBaseLogic\UserDataBse\UserContext.cs" />
-    <Compile Include="Models\Loginners\LoginnerBuilder.cs" />
-    <Compile Include="Models\Loginners\Loginner.cs" />
+    <Compile Include="Models\Loginners\LogginerBuilder.cs" />
+    <Compile Include="Models\Loginners\Logginer.cs" />
     <Compile Include="ViewModels\MainViewModels\AuthorizationViewModel.cs" />
     <Compile Include="ViewModels\MainViewModels\FilmViewModel.cs" />
     <Compile Include="Models\Web\BingSearch\Bing.cs" />

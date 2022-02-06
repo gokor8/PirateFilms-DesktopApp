@@ -4,7 +4,7 @@ using Films.Models.Web.BingSearch.SiteSearchers;
 
 namespace Films.Models.Web.BingSearch
 {
-    public class SiteSearcherFactory
+    public sealed class SiteSearcherFactory
     {
         public async Task<ISearcher> CreateSiteSearcherAsync()
         {

@@ -9,7 +9,7 @@ namespace Films.Models.Web.HttpClients
     public sealed class SiteFilmsHttp : BaseHttp
     {
         private static SiteFilmsHttp _instance;
-        private static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1);
+        private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1);
 
         private string _workingBaseAddress = string.Empty;
 
@@ -27,7 +27,7 @@ namespace Films.Models.Web.HttpClients
 
         public static async Task<SiteFilmsHttp> GetInstanceAsync()
         {
-            await semaphore.WaitAsync().ConfigureAwait(false);
+            await _semaphore.WaitAsync().ConfigureAwait(false);
             try
             {
                 if (_instance == null)
@@ -39,7 +39,7 @@ namespace Films.Models.Web.HttpClients
             }
             finally
             {
-                semaphore.Release();
+                _semaphore.Release();
             }
 
             return _instance;

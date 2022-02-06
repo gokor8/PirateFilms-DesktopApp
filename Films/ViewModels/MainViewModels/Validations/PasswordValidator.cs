@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Films.ViewModels.MainViewModel.Validations
+namespace Films.ViewModels.MainViewModels.Validations
 {
     public class PasswordValidator : INPC
     {

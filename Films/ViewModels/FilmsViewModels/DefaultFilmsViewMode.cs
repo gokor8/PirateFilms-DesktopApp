@@ -6,7 +6,7 @@ using Films.Models.Web.Parsers;
 
 namespace Films.ViewModels.FilmsViewModels
 {
-    public class DefaultFilmsViewMode : INPC
+    public sealed class DefaultFilmsViewMode : INPC
     {
         private ObservableCollection<FilmDataViewModel> _defaultFilms;
 

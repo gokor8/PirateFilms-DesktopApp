@@ -16,10 +16,8 @@ namespace Films.Models.Web.BingSearch.Parsers
         public async IAsyncEnumerable<string> GetWorkingLinksAsync(string htmlСontent)
         {
             IDocument htmlDocument = await new ParserCore().Context.OpenAsync(html => html.Content(htmlСontent));
-
             string linkPicture = string.Empty;
-
-
+            
             foreach (var filmImage in htmlDocument.QuerySelectorAll("div.imgpt a.iusc"))
             {
                 string mAttribute = filmImage.GetAttribute("m");

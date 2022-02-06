@@ -1,6 +1,6 @@
-﻿namespace Films.MVVMLogic.Models
+﻿namespace Films.Models.Loginners
 {
-    public struct Loginner
+    public struct Logginer
     {
         public string AcscessString { get; set; }
         public bool IsVerify { get; set; }

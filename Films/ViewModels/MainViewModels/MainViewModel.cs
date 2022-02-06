@@ -1,10 +1,10 @@
 ﻿using Films.Models.ScrollFilms;
-using Films.ViewModels.MainViewModel;
 
 namespace Films.ViewModels.MainViewModels
 {
     class MainViewModel : INPC
     {
+        // Оставляю полем, если нужно будет отписаться от ивента
         private readonly FilmTimer _timer;
         private readonly IWindowChanger _windowChanger = new FilmWindowChanger();
         
@@ -21,11 +21,11 @@ namespace Films.ViewModels.MainViewModels
             };
             _timer.StartTimer();
 
-            AutorizationVm = new AuthorizationViewModel(_windowChanger);
+            AutorizationViewModel = new AuthorizationViewModel(_windowChanger);
             FilmViewModel = new FilmViewModel() {Name = "....."};
         }
 
-        public AuthorizationViewModel AutorizationVm { get; }
+        public AuthorizationViewModel AutorizationViewModel { get; }
         public FilmViewModel FilmViewModel
         {
             get => _filmViewModel;
