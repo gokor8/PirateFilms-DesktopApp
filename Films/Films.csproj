@@ -133,6 +133,8 @@
     <Compile Include="Models\Web\Parsers\LordfilmParser.cs" />
     <Compile Include="ViewModels\FilmsViewModels\FilmsViewModel.cs" />
     <Compile Include="ViewModels\FilmsViewModels\FilmDataViewModel.cs" />
+    <Compile Include="ViewModels\FilmsViewModels\RecommendFilmsViewModel.cs" />
+    <Compile Include="ViewModels\FilmsViewModels\DefaultFilmsViewMode.cs" />
     <Compile Include="ViewModels\MainViewModels\Validations\LoginValidator.cs" />
     <Compile Include="ViewModels\MainViewModels\Validations\PasswordValidator.cs" />
     <Compile Include="Views\App.xaml.cs">
@@ -180,7 +182,7 @@
     <Compile Include="Models\DataBaseLogic\UserDataBse\UserContext.cs" />
     <Compile Include="Models\Loginners\LoginnerBuilder.cs" />
     <Compile Include="Models\Loginners\Loginner.cs" />
-    <Compile Include="ViewModels\MainViewModels\AutorizationVm.cs" />
+    <Compile Include="ViewModels\MainViewModels\AuthorizationViewModel.cs" />
     <Compile Include="ViewModels\MainViewModels\FilmViewModel.cs" />
     <Compile Include="Models\Web\BingSearch\Bing.cs" />
     <Compile Include="Models\Web\BingSearch\Parsers\ImageBingParser.cs" />
